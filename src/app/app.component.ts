@@ -14,12 +14,9 @@ import { MovieService } from './services/movie.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private movieService: MovieService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.movieService.fetchData().subscribe((res) => {
-      console.log(res);
-    });
   }
 
   title = 'movie-explorer';

@@ -1,3 +1,10 @@
 import { Routes } from '@angular/router';
+import { MovieListComponent } from './movie-list/movie-list.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // redirect to `home` page
+  { path: 'home', component: MovieListComponent },
+  { path: 'movie-details', component: MovieDetailsComponent },
+  { path: '**', component: MovieDetailsComponent },  // Wildcard route for a 404 page
+];
