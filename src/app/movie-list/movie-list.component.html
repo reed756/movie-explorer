@@ -1,19 +1,12 @@
-<mat-grid-list cols="3" rowHeight="2:1">
-  <mat-grid-tile *ngFor="let movie of movies">
-    <mat-card>
-      <mat-card-content>
-
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="example-card">
+<div class="card-list-container">
+  <div class="card-list">
+    <mat-card *ngFor="let movie of movies">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar></div>
         <mat-card-title>{{movie.original_title}}</mat-card-title>
         <mat-card-subtitle>{{movie.original_language}}
         </mat-card-subtitle>
       </mat-card-header>
-      <!-- <img mat-card-image [src]="movie.poster_path" [alt]="movie.original_title"> -->
       <mat-card-content>
         <p>
           {{movie.overview}}
@@ -23,5 +16,6 @@
         <button mat-button>MORE INFO</button>
       </mat-card-actions>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
+<div class="bottom-gap"></div>
