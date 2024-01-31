@@ -1,21 +1,24 @@
 <div class="card-list-container">
   <div class="card-list">
-    <mat-card *ngFor="let movie of movies">
-      <mat-card-header>
-        <div mat-card-avatar></div>
-        <mat-card-title>{{movie.original_title}}</mat-card-title>
-        <mat-card-subtitle>{{movie.original_language}}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{movie.overview}}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>MORE INFO</button>
-      </mat-card-actions>
-    </mat-card>
+    <ul>
+      <li *ngFor="let movie of movies">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar></div>
+            <mat-card-title>{{movie.original_title}}</mat-card-title>
+            <mat-card-subtitle>{{movie.original_language}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              {{movie.overview}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>MORE INFO</button>
+          </mat-card-actions>
+        </mat-card>
+      </li>
+    </ul>
   </div>
 </div>
-<div class="bottom-gap"></div>
