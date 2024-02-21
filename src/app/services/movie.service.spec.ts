@@ -38,7 +38,7 @@ describe('MovieService', () => {
     httpClientSpy.get.and.returnValue(of(expectedMovies));
 
     // Call the method and subscribe to the observable
-    movieService.fetchData().subscribe(
+    movieService.fetchMovies().subscribe(
       (movies) => {
         // Expectations for the returned movies
         expect(movies).toEqual(jasmine.arrayWithExactContents(expectedMovies));

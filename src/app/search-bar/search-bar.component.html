@@ -1,5 +1,5 @@
 <form class="example-form">
-  <mat-form-field class="example-full-width">
+  <mat-form-field appearance="outline">
     <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
       placeholder="Search Movie Explorer">
     @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {

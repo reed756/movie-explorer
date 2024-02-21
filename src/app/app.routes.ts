@@ -5,6 +5,6 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // redirect to `home` page
   { path: 'home', component: MovieListComponent },
-  { path: 'movie-details', component: MovieDetailsComponent },
+  { path: 'movie-details/:id', component: MovieDetailsComponent },
   { path: '**', component: MovieDetailsComponent },  // Wildcard route for a 404 page
 ];
