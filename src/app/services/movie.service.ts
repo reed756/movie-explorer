@@ -15,6 +15,8 @@ export class MovieService {
     }
   };
 
+  apiUrl: string = 'https://api.themoviedb.org/3/';
+
   constructor(private http: HttpClient) {}
 
   private $movies = new BehaviorSubject<any[]>([]);
@@ -24,11 +26,11 @@ export class MovieService {
   }
 
   fetchMovies() {
-    return this.http.get('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', this.options);
+    return this.http.get(`${this.apiUrl}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, this.options);
   }
 
-  fetchSingleMovie() {
-    return this.http.get('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', this.options);
+  fetchSingleMovie(id: any) {
+    return this.http.get(`${this.apiUrl}https://api.themoviedb.org/3/movie/${id}?language=en-US`, this.options);
   }
 
 }

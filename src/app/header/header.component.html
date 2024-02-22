@@ -1,4 +1,9 @@
 <mat-toolbar color="primary">
   <span routerLink="/home" routerLinkActive="router-link-active">Movie Explorer</span>
-  <app-search-bar></app-search-bar>
+  <span class="example-spacer"></span>
+  <mat-icon aria-hidden="false" aria-label="Searchicon" fontIcon="search"
+    (click)="showSearchBar = !showSearchBar"></mat-icon>
 </mat-toolbar>
+@if (showSearchBar) {
+<app-search-bar></app-search-bar>
+}
