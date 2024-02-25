@@ -29,8 +29,8 @@ export class MovieService {
     return this.http.get(`${this.apiUrl}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, this.options);
   }
 
-  fetchSingleMovie(id: any) {
-    return this.http.get(`${this.apiUrl}https://api.themoviedb.org/3/movie/${id}?language=en-US`, this.options);
+  fetchSingleMovie(id: any): any {
+    return this.http.get(`${this.apiUrl}movie/${id}?language=en-US`, this.options);
   }
 
 }

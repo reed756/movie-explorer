@@ -1,1 +1,21 @@
-<p>movie-details works!</p>
+<section>
+  <div *ngIf="movie$ | async as movie" class="movie-div">
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>{{movie.title}}</mat-card-title>
+        <mat-card-subtitle>{{movie.release_date | date}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" [alt]="movie.title">
+      <mat-card-content>
+        <p>Runtime: {{movie.runtime}}</p>
+        <p>Budget: {{movie.budget}}</p>
+        <p>Revenue: {{movie.revenue}}</p>
+        <p>
+          {{movie.overview}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
