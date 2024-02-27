@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe],
+  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.scss'
 })

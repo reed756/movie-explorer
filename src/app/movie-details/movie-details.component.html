@@ -9,9 +9,9 @@
       </mat-card-header>
       <img mat-card-image src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" [alt]="movie.title">
       <mat-card-content>
-        <p>Runtime: {{movie.runtime}}</p>
-        <p>Budget: {{movie.budget}}</p>
-        <p>Revenue: {{movie.revenue}}</p>
+        <p>Runtime: {{movie.runtime}} minutes</p>
+        <p>Budget: {{movie.budget | currency : 'USD': 'symbol' : '1.0-0'}}</p>
+        <p>Revenue: {{movie.revenue | currency : 'USD': 'symbol' : '1.0-0'}}</p>
         <p>
           {{movie.overview}}
         </p>
