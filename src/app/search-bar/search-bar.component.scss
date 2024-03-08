@@ -1,7 +1,9 @@
 form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding-top: 1rem;
+  align-items: center;
   mat-form-field {
     width: 50%;
   }
