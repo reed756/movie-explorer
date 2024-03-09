@@ -33,4 +33,8 @@ export class MovieService {
     return this.http.get(`${this.apiUrl}movie/${id}?language=en-US`, this.options);
   }
 
+  searchMovies(query: any) {
+    return this.http.get(`${this.apiUrl}search/movie?query=${query}`, this.options);
+  }
+
 }
