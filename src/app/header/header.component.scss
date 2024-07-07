@@ -1,9 +1,20 @@
 mat-toolbar {
+  padding: 0 7.5vw;
   span,
   mat-icon {
     cursor: pointer;
   }
   .example-spacer {
     flex: 1 1 auto;
+  }
+  .menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20vw;
+    li {
+      font-size: 1rem;
+    }
   }
 }
