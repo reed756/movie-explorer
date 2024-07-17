@@ -5,7 +5,13 @@
       <li *ngFor="let movie of movies">
         <mat-card>
           <mat-card-header>
-            <div mat-card-avatar></div>
+            <div mat-card-avatar>
+              @if (movie.vote_average === 0) {
+              <h3>NR</h3>
+              } @else {
+              <h3>{{(movie.vote_average * 10) | number : '1.0-0' }}%</h3>
+              }
+            </div>
             <mat-card-title>{{movie.original_title}}</mat-card-title>
             <mat-card-subtitle>{{movie.release_date | date}}
             </mat-card-subtitle>

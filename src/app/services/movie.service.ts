@@ -25,8 +25,8 @@ export class MovieService {
     return this.$movies.asObservable();
   }
 
-  fetchMovies() {
-    return this.http.get(`${this.apiUrl}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, this.options);
+  fetchMovies(time_window: string) {
+    return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);
   }
 
   fetchSingleMovie(id: any): any {

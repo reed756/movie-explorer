@@ -1,19 +1,28 @@
 .card-list-container {
   display: flex;
   justify-content: center;
+  // overflow-x: scroll;
   .card-list {
     width: 80vw;
     ul {
       padding-left: 0;
       display: flex;
+      overflow-x: scroll;
+      height: 55vh;
       li {
         list-style-type: none;
         mat-card {
           max-width: 450px;
           margin: 10px 20px 0 0;
-          // &:last-child {
-          //   margin-bottom: 10px;
-          // }
+          mat-card-header {
+            mat-card-title {
+              max-height: 23.5px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              max-width: 450px;
+            }
+          }
         }
       }
     }
