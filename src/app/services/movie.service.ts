@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, map, shareReplay, takeUntil, tap } from 'rxjs';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { Movie, MovieResponse } from './movie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  options: any = {
+  private options: any = {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -15,15 +17,20 @@ export class MovieService {
     }
   };
 
-  apiUrl: string = 'https://api.themoviedb.org/3/';
+  private apiUrl: string = 'https://api.themoviedb.org/3/';
 
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
-  private $movies = new BehaviorSubject<any[]>([]);
+  private trendingMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
+    map((data) => {
+      data.results.map((movie: Movie) => ({
+        ...movie,
+      }) as Movie)
+    }),
+    shareReplay(1),
+  );
 
-  getMovies() {
-    return this.$movies.asObservable();
-  }
+  trendingMovies = toSignal(this.trendingMovies$);
 
   fetchMovies(time_window: string) {
     return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);
