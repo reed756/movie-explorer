@@ -20,7 +20,9 @@ export class MovieListComponent {
 
   private movieService = inject(MovieService);
 
-  movies: any = computed(() => this.movieService.trendingMovies());
-  trendingTimeWindow = 'day';
+  movies: any = computed(() =>
+    this.trendingTimeWindow() === 'day' ? this.movieService.trendingMoviesToday() : this.movieService.trendingMoviesThisWeek()
+  );
+  trendingTimeWindow = signal('day');
 
 }

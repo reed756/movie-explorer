@@ -20,16 +20,26 @@ export class MovieService {
 
   http = inject(HttpClient);
 
-  private trendingMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
+  private trendingMoviesToday$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
     map((data) =>
       data.results.map((movie: Movie) => ({
-        ...movie,
+        ...movie
       }))
     ),
     shareReplay(1),
   );
 
-  trendingMovies = toSignal(this.trendingMovies$, { initialValue: [] as Movie[] });
+  private trendingMoviesThisWeek$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/week`, this.options).pipe(
+    map((data) =>
+      data.results.map((movie: Movie) => ({
+        ...movie
+      }))
+    ),
+    shareReplay(1),
+  );
+
+  trendingMoviesToday = toSignal(this.trendingMoviesToday$, { initialValue: [] as Movie[] });
+  trendingMoviesThisWeek = toSignal(this.trendingMoviesThisWeek$, { initialValue: [] as Movie[] });
 
   fetchMovies(time_window: string) {
     return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);
