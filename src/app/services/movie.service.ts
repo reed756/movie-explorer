@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, shareReplay, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, observeOn, shareReplay, takeUntil, tap } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from './movie';
 
@@ -9,8 +9,7 @@ import { Movie, MovieResponse } from './movie';
 })
 export class MovieService {
 
-  private options: any = {
-    method: 'GET',
+  private options = {
     headers: {
       accept: 'application/json',
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDA5YzY0M2UzNzVkOTE3ZGMxNWQ3OWMxYWI0OWNhNCIsInN1YiI6IjY1YTgxZGQ0MWJmODc2MDEyM2M5YzY4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yqN1Xviii_ZwRZFvts-oS7fI5jQV61zpsXI46Y6Mcl0'
@@ -22,15 +21,15 @@ export class MovieService {
   http = inject(HttpClient);
 
   private trendingMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
-    map((data) => {
+    map((data) =>
       data.results.map((movie: Movie) => ({
         ...movie,
-      }) as Movie)
-    }),
+      }))
+    ),
     shareReplay(1),
   );
 
-  trendingMovies = toSignal(this.trendingMovies$);
+  trendingMovies = toSignal(this.trendingMovies$, { initialValue: [] as Movie[] });
 
   fetchMovies(time_window: string) {
     return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);

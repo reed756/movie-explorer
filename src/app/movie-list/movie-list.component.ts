@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,18 +16,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './movie-list.component.scss',
   providers: [MovieService, HttpClient]
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent {
 
-  movies: any = signal([]);
+  private movieService = inject(MovieService);
+
+  movies: any = computed(() => this.movieService.trendingMovies());
   trendingTimeWindow = 'day';
-
-  constructor(private movieService: MovieService) {}
-
-  ngOnInit(): void {
-    this.movieService.fetchMovies(this.trendingTimeWindow).subscribe((res: any) => {
-      console.log(res);
-      this.movies.set(res.results);
-    });
-  }
 
 }
