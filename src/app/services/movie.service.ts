@@ -38,8 +38,28 @@ export class MovieService {
     shareReplay(1),
   );
 
+  private popularMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/popular`, this.options).pipe(
+    map((data) =>
+      data.results.map((movie: Movie) => ({
+        ...movie
+      }))
+    ),
+    shareReplay(1),
+  );
+
+  private popularMoviesInTheaters$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/now_playing`, this.options).pipe(
+    map((data) =>
+      data.results.map((movie: Movie) => ({
+        ...movie
+      }))
+    ),
+    shareReplay(1),
+  );
+
   trendingMoviesToday = toSignal(this.trendingMoviesToday$, { initialValue: [] as Movie[] });
   trendingMoviesThisWeek = toSignal(this.trendingMoviesThisWeek$, { initialValue: [] as Movie[] });
+  popularMovies = toSignal(this.popularMovies$, { initialValue: [] as Movie[] });
+  popularMoviesInTheaters = toSignal(this.popularMoviesInTheaters$, { initialValue: [] as Movie[] });
 
   fetchMovies(time_window: string) {
     return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);
