@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, CurrencyPipe, DatePipe, NgIf } from '@angular/common';
+import { BehaviorSubject, tap } from 'rxjs';
+import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe],
+  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe, DecimalPipe],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.scss'
 })
@@ -20,7 +20,9 @@ export class MovieDetailsComponent {
 
   @Input()
   set id(movieId: string) {
-    this.movie$ = this.movieService.fetchSingleMovie(movieId);
+    this.movie$ = this.movieService.fetchSingleMovie(movieId).pipe(
+      tap((res) => console.log(res))
+    );
   }
 
 }
