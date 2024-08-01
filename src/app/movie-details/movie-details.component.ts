@@ -15,14 +15,12 @@ export class MovieDetailsComponent {
 
   movie$ = new BehaviorSubject<any>({});
 
-  constructor(private movieService: MovieService) {
+  constructor(public movieService: MovieService) {
   }
 
   @Input()
-  set id(movieId: string) {
-    // this.movie$ = this.movieService.fetchSingleMovie(movieId).pipe(
-    //   tap((res) => console.log(res))
-    // );
+  set id(movieId: number) {
+    this.movieService.movieSelected(movieId);
   }
 
 }

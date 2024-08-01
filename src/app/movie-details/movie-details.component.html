@@ -1,5 +1,5 @@
 <section>
-  <div *ngIf="movie$ | async as movie" class="movie-div">
+  <div *ngIf="movieService.movieSelected$ | async as movie" class="movie-div">
     <div class="movie-grid">
       <div class="movie-img">
         <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" [alt]="movie.title">

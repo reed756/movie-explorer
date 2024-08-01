@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, model, signal } from '@angular/core';
-import { BehaviorSubject, catchError, map, observeOn, shareReplay, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, forkJoin, map, observeOn, shareReplay, switchMap, takeUntil, tap } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from './movie';
 
@@ -18,6 +18,18 @@ export class MovieService {
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
   searchTerm = signal('');
+  selectedMovieId = signal<number | undefined>(undefined);
+
+  movieSelected$ = toObservable(this.selectedMovieId).pipe(
+    filter(Boolean),
+    switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options))
+  )
+
+  movieSelected(id: number) {
+    this.selectedMovieId.set(id);
+  }
+
+  // selectedMovie = toSignal<Movie>(this.movieSelected$, {initialValue: {}});
 
   http = inject(HttpClient);
 

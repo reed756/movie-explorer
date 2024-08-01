@@ -8,17 +8,20 @@ export interface MovieResponse {
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
-  genre_id: Number[];
-  id: Number;
+  genre_id: number[];
+  id: number;
+  genres: { id: number, name: string }[];
   media_type: string;
   original_language: string;
   original_title: string;
   overview: string;
-  popularity: Number;
+  popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
   video: boolean;
-  vote_average: Number;
-  vote_count: Number;
+  vote_average: number;
+  vote_count: number;
+  runtime: number;
+  tagline: string;
 }
