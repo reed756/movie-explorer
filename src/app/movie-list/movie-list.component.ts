@@ -8,10 +8,11 @@ import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
   providers: [MovieService, HttpClient]

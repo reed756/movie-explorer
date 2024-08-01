@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { MovieService } from '../services/movie.service';
+import { Movie, MovieResponse } from '../services/movie';
 
 @Component({
   selector: 'app-search-results',
@@ -10,11 +11,14 @@ import { MovieService } from '../services/movie.service';
 })
 export class SearchResultsComponent {
 
-  constructor(private movieService: MovieService) {}
+  private movieService = inject(MovieService);
+  searchResults = signal([] as Movie[]);
 
   @Input()
   set id(searchTerm: string) {
-    this.movieService.searchMovies(searchTerm).subscribe(res => console.log(res));
+    this.movieService.fetchSearchResults(searchTerm).subscribe((searchRes) => {
+      this.searchResults.set(searchRes);
+    })
   }
 
 }

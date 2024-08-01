@@ -1,12 +1,14 @@
-<form class="example-form">
-  <mat-form-field appearance="outline">
-    <input type="text" matInput [formControl]="searchControl" [errorStateMatcher]="matcher"
-      placeholder="Search Movie Explorer">
-    @if (searchControl.hasError('email') && !searchControl.hasError('required')) {
-    <mat-error>Please enter a valid email address</mat-error>
-    }
-    @if (searchControl.hasError('required')) {
-    }
-  </mat-form-field>
-  <button mat-raised-button color="primary" [routerLink]="['/search-results', searchControl.value]">Search</button>
-</form>
+<div class="form-div">
+  <form [formGroup]="searchForm" (ngSubmit)="searchForMovies()">
+    <mat-form-field appearance="outline">
+      <input type="text" matInput formControlName="searchTerm" [errorStateMatcher]="matcher"
+        placeholder="Search Movie Explorer">
+      @if (searchForm.hasError('email') && !searchForm.hasError('required')) {
+      <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if (searchForm.hasError('required')) {
+      }
+    </mat-form-field>
+    <button mat-raised-button color="primary">Search</button>
+  </form>
+</div>

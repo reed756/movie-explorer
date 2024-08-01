@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, model, signal } from '@angular/core';
 import { BehaviorSubject, catchError, map, observeOn, shareReplay, takeUntil, tap } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from './movie';
@@ -17,6 +17,7 @@ export class MovieService {
   };
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
+  searchTerm = signal('');
 
   http = inject(HttpClient);
 
@@ -35,7 +36,7 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1),
+    shareReplay(1)
   );
 
   private popularMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/popular`, this.options).pipe(
@@ -44,7 +45,7 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1),
+    shareReplay(1)
   );
 
   private popularMoviesInTheaters$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/now_playing`, this.options).pipe(
@@ -53,24 +54,33 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1),
+    shareReplay(1)
   );
+
+  // private movieSearch$ = this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=deadpool`, this.options).pipe(
+  //   map((data) =>
+  //     data.results.map((movie: Movie) => ({
+  //       ...movie
+  //     }))
+  //   ),
+  //   shareReplay(1)
+  // )
 
   trendingMoviesToday = toSignal(this.trendingMoviesToday$, { initialValue: [] as Movie[] });
   trendingMoviesThisWeek = toSignal(this.trendingMoviesThisWeek$, { initialValue: [] as Movie[] });
   popularMovies = toSignal(this.popularMovies$, { initialValue: [] as Movie[] });
   popularMoviesInTheaters = toSignal(this.popularMoviesInTheaters$, { initialValue: [] as Movie[] });
+  // movieSearchResults = toSignal(this.movieSearch$, { initialValue: [] as Movie[] });
 
-  fetchMovies(time_window: string) {
-    return this.http.get(`${this.apiUrl}trending/movie/${time_window}`, this.options);
-  }
-
-  fetchSingleMovie(id: any): any {
-    return this.http.get(`${this.apiUrl}movie/${id}?language=en-US`, this.options);
-  }
-
-  searchMovies(query: any) {
-    return this.http.get(`${this.apiUrl}search/movie?query=${query}`, this.options);
+  fetchSearchResults(searchTerm: string) {
+    return this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options).pipe(
+      map((data) =>
+        data.results.map((movie: Movie) => ({
+          ...movie
+        }))
+      ),
+      shareReplay(1)
+    )
   }
 
 }

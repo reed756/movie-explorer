@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MovieService } from '../services/movie.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,10 +23,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SearchBarComponent {
 
-  constructor() {}
+  private movieService = inject(MovieService);
+  private router = inject(Router)
 
-  searchControl = new FormControl<string | null>('');
+  searchForm = new FormGroup({
+    searchTerm: new FormControl<string | null>('')
+  })
 
   matcher = new MyErrorStateMatcher();
+
+  searchForMovies() {
+    this.router.navigate(['search-results', this.searchForm.value.searchTerm])
+  }
 
 }

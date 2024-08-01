@@ -20,9 +20,9 @@ export class MovieDetailsComponent {
 
   @Input()
   set id(movieId: string) {
-    this.movie$ = this.movieService.fetchSingleMovie(movieId).pipe(
-      tap((res) => console.log(res))
-    );
+    // this.movie$ = this.movieService.fetchSingleMovie(movieId).pipe(
+    //   tap((res) => console.log(res))
+    // );
   }
 
 }
