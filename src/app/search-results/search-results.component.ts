@@ -1,24 +1,28 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, computed, effect, inject, Input, OnInit, signal } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { Movie, MovieResponse } from '../services/movie';
+import { NgForOf, DatePipe, NgIf, DecimalPipe, AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { RouterLink } from '@angular/router';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss'
 })
 export class SearchResultsComponent {
-
   private movieService = inject(MovieService);
-  searchResults = signal([] as Movie[]);
+
+  searchResults = computed(() => this.movieService.searchResults());
 
   @Input()
-  set id(searchTerm: string) {
-    this.movieService.fetchSearchResults(searchTerm).subscribe((searchRes) => {
-      this.searchResults.set(searchRes);
-    })
+  set searchTerm(searchString: string) {
+    this.movieService.searchTermFilled(searchString);
   }
-
 }

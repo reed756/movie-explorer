@@ -1,5 +1,5 @@
 <div class="form-div">
-  <form [formGroup]="searchForm" (ngSubmit)="searchForMovies()">
+  <form [formGroup]="searchForm">
     <mat-form-field appearance="outline">
       <input type="text" matInput formControlName="searchTerm" [errorStateMatcher]="matcher"
         placeholder="Search Movie Explorer">
@@ -9,6 +9,6 @@
       @if (searchForm.hasError('required')) {
       }
     </mat-form-field>
-    <button mat-raised-button color="primary">Search</button>
+    <button mat-raised-button color="primary" (click)="search()">Search</button>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { BehaviorSubject, tap } from 'rxjs';
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf } from '@angular/common';
@@ -13,10 +13,8 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class MovieDetailsComponent {
 
-  movie$ = new BehaviorSubject<any>({});
-
-  constructor(public movieService: MovieService) {
-  }
+  movieService = inject(MovieService);
+  movie = this.movieService.selectedMovie;
 
   @Input()
   set id(movieId: number) {

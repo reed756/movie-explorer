@@ -9,6 +9,8 @@ import { Movie, MovieResponse } from './movie';
 })
 export class MovieService {
 
+  http = inject(HttpClient);
+
   private options = {
     headers: {
       accept: 'application/json',
@@ -17,21 +19,33 @@ export class MovieService {
   };
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
-  searchTerm = signal('');
+  searchTerm = signal<string | null | undefined>(undefined);
   selectedMovieId = signal<number | undefined>(undefined);
 
-  movieSelected$ = toObservable(this.selectedMovieId).pipe(
+  public searchResults$ = toObservable(this.searchTerm).pipe(
     filter(Boolean),
-    switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options))
+    switchMap(searchTerm => {
+      console.log(`Searching for: ${searchTerm}`);
+      return this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options)
+    }
+    ),
+    map(data => {
+      console.log('Received data:', data);
+      const results = data.results.map((movie: Movie) => ({
+        ...movie
+      }))
+      console.log('results?', results);
+      return results;
+    }
+    ),
+    shareReplay(1)
+  );
+
+  private movieSelected$ = toObservable(this.selectedMovieId).pipe(
+    filter(Boolean),
+    switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options)),
+    shareReplay(1)
   )
-
-  movieSelected(id: number) {
-    this.selectedMovieId.set(id);
-  }
-
-  // selectedMovie = toSignal<Movie>(this.movieSelected$, {initialValue: {}});
-
-  http = inject(HttpClient);
 
   private trendingMoviesToday$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
     map((data) =>
@@ -69,30 +83,21 @@ export class MovieService {
     shareReplay(1)
   );
 
-  // private movieSearch$ = this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=deadpool`, this.options).pipe(
-  //   map((data) =>
-  //     data.results.map((movie: Movie) => ({
-  //       ...movie
-  //     }))
-  //   ),
-  //   shareReplay(1)
-  // )
-
+  // Converted Signals
   trendingMoviesToday = toSignal(this.trendingMoviesToday$, { initialValue: [] as Movie[] });
   trendingMoviesThisWeek = toSignal(this.trendingMoviesThisWeek$, { initialValue: [] as Movie[] });
   popularMovies = toSignal(this.popularMovies$, { initialValue: [] as Movie[] });
   popularMoviesInTheaters = toSignal(this.popularMoviesInTheaters$, { initialValue: [] as Movie[] });
-  // movieSearchResults = toSignal(this.movieSearch$, { initialValue: [] as Movie[] });
+  searchResults = toSignal(this.searchResults$, { initialValue: [] as Movie[] });
+  selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as Movie });
 
-  fetchSearchResults(searchTerm: string) {
-    return this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options).pipe(
-      map((data) =>
-        data.results.map((movie: Movie) => ({
-          ...movie
-        }))
-      ),
-      shareReplay(1)
-    )
+  // Methods
+  movieSelected(id: number) {
+    this.selectedMovieId.set(id);
+  }
+
+  searchTermFilled(searchTerm: string | null | undefined) {
+    this.searchTerm.set(searchTerm);
   }
 
 }
