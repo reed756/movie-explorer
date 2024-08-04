@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, Input, OnInit, signal } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { NgForOf, DatePipe, NgIf, DecimalPipe, AsyncPipe } from '@angular/common';
+import { NgForOf, DatePipe, NgIf, DecimalPipe, AsyncPipe, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -12,7 +12,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, NgStyle],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss'
 })
