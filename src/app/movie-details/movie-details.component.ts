@@ -1,6 +1,5 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { BehaviorSubject, tap } from 'rxjs';
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 

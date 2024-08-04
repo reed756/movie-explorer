@@ -1,6 +1,6 @@
-import { Component, computed, effect, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { MovieService } from '../services/movie.service';
-import { NgForOf, DatePipe, NgIf, DecimalPipe, AsyncPipe, NgStyle } from '@angular/common';
+import { NgForOf, DatePipe, NgIf, DecimalPipe, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';

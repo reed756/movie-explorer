@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, model, signal } from '@angular/core';
-import { BehaviorSubject, catchError, filter, forkJoin, map, observeOn, shareReplay, switchMap, takeUntil, tap } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { filter, map, shareReplay, switchMap } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from './movie';
 
@@ -24,19 +24,11 @@ export class MovieService {
 
   public searchResults$ = toObservable(this.searchTerm).pipe(
     filter(Boolean),
-    switchMap(searchTerm => {
-      console.log(`Searching for: ${searchTerm}`);
-      return this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options)
-    }
-    ),
-    map(data => {
-      console.log('Received data:', data);
-      const results = data.results.map((movie: Movie) => ({
+    switchMap(searchTerm => this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options)),
+    map(data =>
+      data.results.map((movie: Movie) => ({
         ...movie
       }))
-      console.log('results?', results);
-      return results;
-    }
     ),
     shareReplay(1)
   );
