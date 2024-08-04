@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { filter, map, shareReplay, switchMap } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, throwError } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from './movie';
 
@@ -30,13 +30,15 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1)
+    shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   );
 
   private movieSelected$ = toObservable(this.selectedMovieId).pipe(
     filter(Boolean),
     switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options)),
-    shareReplay(1)
+    shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   )
 
   private trendingMoviesToday$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
@@ -46,6 +48,7 @@ export class MovieService {
       }))
     ),
     shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   );
 
   private trendingMoviesThisWeek$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/week`, this.options).pipe(
@@ -54,7 +57,8 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1)
+    shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   );
 
   private popularMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/popular`, this.options).pipe(
@@ -63,7 +67,8 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1)
+    shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   );
 
   private popularMoviesInTheaters$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/now_playing`, this.options).pipe(
@@ -72,7 +77,8 @@ export class MovieService {
         ...movie
       }))
     ),
-    shareReplay(1)
+    shareReplay(1),
+    catchError(err => throwError(() => new Error(err)))
   );
 
   // Converted Signals

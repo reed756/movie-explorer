@@ -1,7 +1,8 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input, Signal } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { Movie } from '../services/movie';
 
 @Component({
   selector: 'app-movie-details',
