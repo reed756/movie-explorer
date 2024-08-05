@@ -16,6 +16,7 @@ export class MovieDetailsComponent {
   movieService = inject(MovieService);
   movie = this.movieService.selectedMovie;
   isLoading = this.movieService.isLoading;
+  votingAverage = computed(() => this.movie().vote_average * 10);
 
   @Input()
   set id(movieId: number) {

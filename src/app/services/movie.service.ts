@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, filter, map, shareReplay, switchMap, tap, throwError } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
@@ -34,7 +34,7 @@ export class MovieService {
     ),
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => throwError(() => new Error(err)))
+    catchError(err => this.handleError(err))
   );
 
   private movieSelected$ = toObservable(this.selectedMovieId).pipe(
@@ -43,7 +43,7 @@ export class MovieService {
     switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options)),
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => throwError(() => new Error(err)))
+    catchError(err => this.handleError(err))
   )
 
   private trendingMoviesToday$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
@@ -69,7 +69,7 @@ export class MovieService {
     ),
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => throwError(() => new Error(err)))
+    catchError(err => this.handleError(err))
   );
 
   private popularMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/popular`, this.options).pipe(
@@ -82,7 +82,7 @@ export class MovieService {
     ),
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => throwError(() => new Error(err)))
+    catchError(err => this.handleError(err))
   );
 
   private popularMoviesInTheaters$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/now_playing`, this.options).pipe(
@@ -95,7 +95,7 @@ export class MovieService {
     ),
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => throwError(() => new Error(err)))
+    catchError(err => this.handleError(err))
   );
 
   // Converted Signals
@@ -107,12 +107,26 @@ export class MovieService {
   selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as Movie });
 
   // Methods
-  movieSelected(id: number) {
+  public movieSelected(id: number) {
     this.selectedMovieId.set(id);
   }
 
-  searchTermFilled(searchTerm: string | null | undefined) {
+  public searchTermFilled(searchTerm: string | null | undefined) {
     this.searchTerm.set(searchTerm);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 }

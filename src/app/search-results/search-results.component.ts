@@ -8,11 +8,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, NgStyle],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, NgStyle, MatProgressSpinnerModule],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss'
 })
@@ -20,6 +21,7 @@ export class SearchResultsComponent {
   private movieService = inject(MovieService);
 
   searchResults = computed(() => this.movieService.searchResults());
+  isLoading = this.movieService.isLoading;
 
   @Input()
   set searchTerm(searchString: string) {

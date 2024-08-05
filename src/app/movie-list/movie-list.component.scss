@@ -12,10 +12,10 @@
       }
     }
     ul {
-      padding-left: 0;
+      padding-left: 2px;
       display: flex;
       overflow-x: scroll;
-      height: auto;
+      min-height: 400px;
       margin-top: 0;
       li {
         mat-card {

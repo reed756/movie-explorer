@@ -10,10 +10,18 @@
           {{movie().title}}
         </h1>
         <h3>
-          {{movie().release_date | date}} &#8226; {{movie().genres[0].name}} &#8226; {{movie().runtime}}m
+          {{movie().release_date | date}} &#8226;
+          @for (genre of movie().genres; track $index) {
+          @if($index + 1 >= movie().genres.length) {
+          {{genre.name}}
+          } @else {
+          {{genre.name}},
+          }
+          }
+          &#8226; {{movie().runtime}}m
         </h3>
         <h2>
-          {{(movie().vote_average * 10) | number : '1.0-0'}}%
+          {{votingAverage() | number : '1.0-0'}}%
         </h2>
         <em>{{movie().tagline}}</em>
         <h3>Overview</h3>
