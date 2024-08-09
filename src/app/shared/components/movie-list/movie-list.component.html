@@ -1,33 +1,15 @@
-<div>
-  <app-search-bar></app-search-bar>
-</div>
 <div class="card-list-container">
   <div class="card-list">
     <div class="list-header">
-      <h1>Trending</h1>
-      <mat-button-toggle-group [(ngModel)]="trendingTimeWindow" aria-label="Trending Movies">
-        <mat-button-toggle value="day">Today</mat-button-toggle>
-        <mat-button-toggle value="week">This Week</mat-button-toggle>
+      <h1>{{config().heading}}</h1>
+      <mat-button-toggle-group [name]="config().heading" [value]="toggle()">
+        @for (toggle of config().toggles; track $index) {
+        <mat-button-toggle [value]="toggle.value" (change)="changeToggle($event)">{{toggle.name}}</mat-button-toggle>
+        }
       </mat-button-toggle-group>
     </div>
     <ul>
-      <li *ngFor="let movie of trendingMovies()">
-        <app-movie-card [movie]="movie"></app-movie-card>
-      </li>
-    </ul>
-  </div>
-</div>
-<div class="card-list-container">
-  <div class="card-list">
-    <div class="list-header">
-      <h1>What's Popular</h1>
-      <mat-button-toggle-group [(ngModel)]="popularToggle" aria-label="Trending Movies">
-        <mat-button-toggle value="popular">For Rent</mat-button-toggle>
-        <mat-button-toggle value="now_playing">In Theaters</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-    <ul>
-      <li *ngFor="let movie of popularMovies()">
+      <li *ngFor="let movie of movies()">
         <app-movie-card [movie]="movie"></app-movie-card>
       </li>
     </ul>

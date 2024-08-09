@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, model, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { Movie, MovieListConfig } from '../../interfaces/movie';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
@@ -20,15 +21,11 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 })
 export class MovieListComponent {
 
-  private movieService = inject(MovieService);
+  toggle = model();
+  movies = input.required<Movie[]>();
+  config = input.required<MovieListConfig>();
 
-  trendingMovies = computed(() =>
-    this.trendingTimeWindow() === 'day' ? this.movieService.trendingMoviesToday() : this.movieService.trendingMoviesThisWeek()
-  );
-  popularMovies = computed(() =>
-    this.popularToggle() === 'popular' ? this.movieService.popularMovies() : this.movieService.popularMoviesInTheaters()
-  )
-  trendingTimeWindow = signal('day');
-  popularToggle = signal('popular');
-
+  changeToggle(ev?: any) {
+    this.toggle.set(ev.value);
+  }
 }

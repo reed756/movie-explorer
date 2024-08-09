@@ -25,3 +25,8 @@ export interface Movie {
   runtime: number;
   tagline: string;
 }
+
+export interface MovieListConfig {
+  heading: string;
+  toggles: { name: string, value: string }[];
+}
