@@ -26,20 +26,16 @@ export class HomeComponent {
     heading: "What's Popular",
     toggles: [
       { name: 'For Rent', value: 'popular' },
-      { name: 'In Theaters', value: 'theatres' }
+      { name: 'In Theaters', value: 'now_playing' }
     ]
   }
 
   trendingMovieConfigSignal = signal(this.trendingMovieListConfig);
   popularMovieConfigSignal = signal(this.popularMovieListConfig);
 
-  protected trendingToggle = signal('day');
-  protected popularToggle = signal('popular');
+  protected trendingToggle = this.movieService.trendingMovieToggle;
+  protected popularToggle = this.movieService.popularMovieToggle;
 
-  trendingMovies = computed(() =>
-    this.trendingToggle() === 'day' ? this.movieService.trendingMoviesToday() : this.movieService.trendingMoviesThisWeek()
-  );
-  popularMovies = computed(() =>
-    this.popularToggle() === 'popular' ? this.movieService.popularMovies() : this.movieService.popularMoviesInTheaters()
-  )
+  trendingMovies = this.movieService.trendingMovies;
+  popularMovies = this.movieService.popularMovies;
 }

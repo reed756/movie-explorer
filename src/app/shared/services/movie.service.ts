@@ -21,6 +21,8 @@ export class MovieService {
   private apiUrl: string = 'https://api.themoviedb.org/3/';
   searchTerm = signal<string | null | undefined>(undefined);
   selectedMovieId = signal<number | undefined>(undefined);
+  trendingMovieToggle = signal<string | undefined>('day');
+  popularMovieToggle = signal<string | undefined>('popular');
   isLoading = signal<boolean>(false);
 
   public searchResults$ = toObservable(this.searchTerm).pipe(
@@ -46,23 +48,11 @@ export class MovieService {
     catchError(err => this.handleError(err))
   )
 
-  private trendingMoviesToday$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/day`, this.options).pipe(
+  private trendingMovies$ = toObservable(this.trendingMovieToggle).pipe(
     tap(() => this.isLoading.set(true)),
     filter(Boolean),
-    map((data) =>
-      data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-    ),
-    tap(() => this.isLoading.set(false)),
-    shareReplay(1),
-    catchError(err => throwError(() => new Error(err.status_message)))
-  );
-
-  private trendingMoviesThisWeek$ = this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/week`, this.options).pipe(
-    tap(() => this.isLoading.set(true)),
-    filter(Boolean),
-    map((data) =>
+    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/${toggle}`, this.options)),
+    map(data =>
       data.results.map((movie: Movie) => ({
         ...movie
       }))
@@ -70,24 +60,12 @@ export class MovieService {
     tap(() => this.isLoading.set(false)),
     shareReplay(1),
     catchError(err => this.handleError(err))
-  );
+  )
 
-  private popularMovies$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/popular`, this.options).pipe(
+  private popularMovies$ = toObservable(this.popularMovieToggle).pipe(
     tap(() => this.isLoading.set(true)),
     filter(Boolean),
-    map((data) =>
-      data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-    ),
-    tap(() => this.isLoading.set(false)),
-    shareReplay(1),
-    catchError(err => this.handleError(err))
-  );
-
-  private popularMoviesInTheaters$ = this.http.get<MovieResponse>(`${this.apiUrl}movie/now_playing`, this.options).pipe(
-    tap(() => this.isLoading.set(true)),
-    filter(Boolean),
+    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}/movie/${toggle}`, this.options)),
     map((data) =>
       data.results.map((movie: Movie) => ({
         ...movie
@@ -99,10 +77,8 @@ export class MovieService {
   );
 
   // Converted Signals
-  trendingMoviesToday = toSignal(this.trendingMoviesToday$, { initialValue: [] as Movie[] });
-  trendingMoviesThisWeek = toSignal(this.trendingMoviesThisWeek$, { initialValue: [] as Movie[] });
+  trendingMovies = toSignal(this.trendingMovies$, { initialValue: [] as Movie[] });
   popularMovies = toSignal(this.popularMovies$, { initialValue: [] as Movie[] });
-  popularMoviesInTheaters = toSignal(this.popularMoviesInTheaters$, { initialValue: [] as Movie[] });
   searchResults = toSignal(this.searchResults$, { initialValue: [] as Movie[] });
   selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as Movie });
 
@@ -115,6 +91,7 @@ export class MovieService {
     this.searchTerm.set(searchTerm);
   }
 
+  // Error Handling
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

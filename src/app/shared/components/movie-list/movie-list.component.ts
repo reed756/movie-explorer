@@ -20,7 +20,6 @@ import { Movie, MovieListConfig } from '../../interfaces/movie';
   providers: [MovieService, HttpClient]
 })
 export class MovieListComponent {
-
   toggle = model();
   movies = input.required<Movie[]>();
   config = input.required<MovieListConfig>();
