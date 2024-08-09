@@ -22,7 +22,7 @@ export class MovieService {
   searchTerm = signal<string | null | undefined>(undefined);
   selectedMovieId = signal<number | undefined>(undefined);
   trendingMovieToggle = signal<string | undefined>('day');
-  popularMovieToggle = signal<string | undefined>('popular');
+  popularMovieToggle = signal<string | undefined>('now_playing');
   isLoading = signal<boolean>(false);
 
   public searchResults$ = toObservable(this.searchTerm).pipe(

@@ -25,8 +25,10 @@ export class HomeComponent {
   private popularMovieListConfig: MovieListConfig = {
     heading: "What's Popular",
     toggles: [
+      { name: 'In Theaters', value: 'now_playing' },
       { name: 'For Rent', value: 'popular' },
-      { name: 'In Theaters', value: 'now_playing' }
+      { name: 'Top Rated', value: 'top_rated' },
+      { name: 'Upcoming', value: 'upcoming' }
     ]
   }
 
