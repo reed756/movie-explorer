@@ -1,5 +1,5 @@
 import { Component, computed, inject, Input } from '@angular/core';
-import { MovieService } from '../services/movie.service';
+import { MovieService } from '../../shared/services/movie.service';
 import { NgForOf, DatePipe, NgIf, DecimalPipe, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -19,7 +19,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class SearchResultsComponent {
   private movieService = inject(MovieService);
-
   searchResults = computed(() => this.movieService.searchResults());
   isLoading = this.movieService.isLoading;
 

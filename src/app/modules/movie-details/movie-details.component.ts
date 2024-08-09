@@ -1,5 +1,5 @@
 import { Component, computed, inject, Input, Signal } from '@angular/core';
-import { MovieService } from '../services/movie.service';
+import { MovieService } from '../../shared/services/movie.service';
 import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';

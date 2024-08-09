@@ -1,0 +1,22 @@
+.card-list-container {
+  display: flex;
+  justify-content: center;
+  .card-list {
+    width: 80vw;
+    .list-header {
+      display: flex;
+      align-items: center;
+      margin-top: 16px;
+      h1 {
+        margin-right: 16px;
+      }
+    }
+    ul {
+      padding-left: 2px;
+      display: flex;
+      overflow-x: scroll;
+      min-height: 400px;
+      margin-top: 0;
+    }
+  }
+}

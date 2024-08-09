@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { MovieService } from './services/movie.service';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { MovieService } from './shared/services/movie.service';
 
 @Component({
   selector: 'app-root',
