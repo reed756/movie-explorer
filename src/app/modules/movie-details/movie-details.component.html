@@ -1,37 +1,39 @@
-<section>
-  <div class="movie-div">
-    @if (!isLoading()) {
-    <div class="movie-grid">
-      <div class="movie-img">
-        <img src="https://image.tmdb.org/t/p/original/{{movie().poster_path}}" [alt]="movie().title">
+<div class="container">
+  <section>
+    <div class="movie-div">
+      @if (!isLoading()) {
+      <div class="movie-grid">
+        <div class="movie-img">
+          <img src="https://image.tmdb.org/t/p/original/{{movie().poster_path}}" [alt]="movie().title">
+        </div>
+        <div class="movie-content">
+          <h1>
+            {{movie().title}}
+          </h1>
+          <h3>
+            {{movie().release_date | date}} &#8226;
+            @for (genre of movie().genres; track $index) {
+            @if($index + 1 >= movie().genres.length) {
+            {{genre.name}}
+            } @else {
+            {{genre.name}},
+            }
+            }
+            &#8226; {{movie().runtime}}m
+          </h3>
+          <h2>
+            {{votingAverage() | number : '1.0-0'}}%
+          </h2>
+          <em>{{movie().tagline}}</em>
+          <h3>Overview</h3>
+          <p>
+            {{movie().overview}}
+          </p>
+        </div>
       </div>
-      <div class="movie-content">
-        <h1>
-          {{movie().title}}
-        </h1>
-        <h3>
-          {{movie().release_date | date}} &#8226;
-          @for (genre of movie().genres; track $index) {
-          @if($index + 1 >= movie().genres.length) {
-          {{genre.name}}
-          } @else {
-          {{genre.name}},
-          }
-          }
-          &#8226; {{movie().runtime}}m
-        </h3>
-        <h2>
-          {{votingAverage() | number : '1.0-0'}}%
-        </h2>
-        <em>{{movie().tagline}}</em>
-        <h3>Overview</h3>
-        <p>
-          {{movie().overview}}
-        </p>
-      </div>
+      } @else {
+      <mat-spinner></mat-spinner>
+      }
     </div>
-    } @else {
-    <mat-spinner></mat-spinner>
-    }
-  </div>
-</section>
+  </section>
+</div>

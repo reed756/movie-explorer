@@ -1,6 +1,8 @@
-<mat-toolbar color="primary">
-  <span routerLink="/home" routerLinkActive="router-link-active">Movie Explorer</span>
-  <ul class="menu-list">
-  </ul>
-  <span class="example-spacer"></span>
-</mat-toolbar>
+<header (router.Scroll)="logEvent($event)">
+  <mat-toolbar color="primary">
+    <span routerLink="/home" routerLinkActive="router-link-active">Movie Explorer</span>
+    <ul class="menu-list">
+    </ul>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
+</header>

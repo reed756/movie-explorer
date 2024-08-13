@@ -1,20 +1,27 @@
-mat-toolbar {
-  padding: 0 10vw;
-  span,
-  mat-icon {
-    cursor: pointer;
-  }
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  .menu-list {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 20vw;
-    li {
-      font-size: 1rem;
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: 0.2ms;
+  mat-toolbar {
+    padding: 0 10vw;
+    span,
+    mat-icon {
+      cursor: pointer;
+    }
+    .example-spacer {
+      flex: 1 1 auto;
+    }
+    .menu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 20vw;
+      li {
+        font-size: 1rem;
+      }
     }
   }
 }
