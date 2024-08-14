@@ -1,4 +1,4 @@
-<header (router.Scroll)="logEvent($event)">
+<header [ngClass]="{'hide': scrolled === 1}">
   <mat-toolbar color="primary">
     <span routerLink="/home" routerLinkActive="router-link-active">Movie Explorer</span>
     <ul class="menu-list">

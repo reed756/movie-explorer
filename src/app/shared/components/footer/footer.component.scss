@@ -1,13 +1,7 @@
 div {
   height: 64px;
+  width: 100%;
   display: flex;
   align-items: center;
-  background-color: black;
   padding: 0 10vw;
-  p {
-    color: white;
-    a {
-      color: yellow;
-    }
-  }
 }

@@ -1,9 +1,12 @@
 header {
+  &.hide {
+    opacity: 0;
+  }
+  opacity: 1;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  transition: 0.2ms;
+  transition: 300ms;
   mat-toolbar {
     padding: 0 10vw;
     span,
