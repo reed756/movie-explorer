@@ -5,7 +5,7 @@
   padding: 2rem 0;
   .movie-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     column-gap: 2rem;
     width: 80vw;
     height: auto;
@@ -19,7 +19,7 @@
     }
     .movie-content {
       grid-column-start: 3;
-      grid-column-end: 6;
+      grid-column-end: 7;
     }
   }
 }
