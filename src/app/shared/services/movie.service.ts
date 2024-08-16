@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { catchError, filter, map, Observable, shareReplay, switchMap, tap, throwError } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Movie, MovieResponse } from '../interfaces/movie';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class MovieService {
   private options = {
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDA5YzY0M2UzNzVkOTE3ZGMxNWQ3OWMxYWI0OWNhNCIsInN1YiI6IjY1YTgxZGQ0MWJmODc2MDEyM2M5YzY4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yqN1Xviii_ZwRZFvts-oS7fI5jQV61zpsXI46Y6Mcl0'
+      Authorization: environment.apiKey
     }
   };
 
