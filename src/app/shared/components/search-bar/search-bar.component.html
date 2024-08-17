@@ -9,6 +9,9 @@
       @if (searchForm.hasError('required')) {
       }
     </mat-form-field>
-    <button mat-raised-button (click)="search()">Search</button>
+    <button mat-fab extended (click)="search()">
+      <mat-icon>search</mat-icon>
+      Search
+    </button>
   </form>
 </div>

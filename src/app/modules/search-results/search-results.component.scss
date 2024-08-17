@@ -1,19 +1,22 @@
-.search-results-div {
-  display: flex;
-  justify-content: center;
-  ul {
-    width: 80vw;
-    mat-card {
-      mat-card-header {
-        div {
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-          background-position: center;
+.container {
+  min-height: calc(100vh - 128px);
+  .search-results-div {
+    display: flex;
+    justify-content: center;
+    ul {
+      width: 80vw;
+      mat-card {
+        mat-card-header {
+          div {
+            background-size: 40px 40px;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
         }
       }
     }
-  }
-  .search-results-list > *:not(:last-child) {
-    margin-bottom: 1rem;
+    .search-results-list > *:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 }

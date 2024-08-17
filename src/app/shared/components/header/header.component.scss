@@ -1,12 +1,5 @@
 mat-toolbar {
-  &.hide {
-    opacity: 0;
-  }
-  opacity: 1;
-  position: fixed;
-  top: 0;
   width: 100vw;
-  transition: 300ms;
   padding: 0 10vw;
   span {
     cursor: pointer;

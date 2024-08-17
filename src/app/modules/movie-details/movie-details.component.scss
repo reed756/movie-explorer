@@ -1,25 +1,28 @@
-.movie-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 0;
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    column-gap: 2rem;
-    width: 80vw;
-    height: auto;
-    .movie-img {
-      width: 100%;
-      grid-column-start: 1;
-      grid-column-end: 3;
-      img {
+.container {
+  min-height: calc(100vh - 128px);
+  .movie-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      column-gap: 2rem;
+      width: 80vw;
+      height: auto;
+      .movie-img {
         width: 100%;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        img {
+          width: 100%;
+        }
       }
-    }
-    .movie-content {
-      grid-column-start: 3;
-      grid-column-end: 7;
+      .movie-content {
+        grid-column-start: 3;
+        grid-column-end: 7;
+      }
     }
   }
 }
