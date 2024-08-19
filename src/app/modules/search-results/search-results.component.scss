@@ -4,6 +4,9 @@
     display: flex;
     justify-content: center;
     ul {
+      &.on-mobile {
+        padding: 0;
+      }
       width: 80vw;
       mat-card {
         mat-card-header {

@@ -1,15 +1,15 @@
 <div class="form-div">
-  <form [formGroup]="searchForm">
+  <form [formGroup]="searchForm" (ngSubmit)="search()" [ngClass]="{'on-mobile': isMobile()}">
     <mat-form-field appearance="outline">
-      <input type="text" matInput formControlName="searchTerm" [errorStateMatcher]="matcher"
-        placeholder="Search Movie Explorer">
-      @if (searchForm.hasError('email') && !searchForm.hasError('required')) {
-      <mat-error>Please enter a valid email address</mat-error>
+      <input type="text" matInput formControlName="searchTerm" placeholder="Search Movie Explorer">
+      @if (searchForm.controls.searchTerm.hasError('required')) {
+      <mat-error>Please enter the name of a film</mat-error>
       }
-      @if (searchForm.hasError('required')) {
+      @if (searchForm.controls.searchTerm.hasError('minlength')) {
+      <mat-error>Please enter a word at least 1 character in length</mat-error>
       }
     </mat-form-field>
-    <button mat-fab extended (click)="search()">
+    <button mat-fab extended [disabled]="!searchForm.valid">
       <mat-icon>search</mat-icon>
       Search
     </button>

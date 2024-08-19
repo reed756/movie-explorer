@@ -1,8 +1,8 @@
 <div class="container">
   @if (!isLoading()) {
   <section @myInsertRemoveTrigger>
-    <div class="movie-div">
-      <div class="movie-grid">
+    <div class="movie-div" [ngClass]="{'desktop-padding': !isMobile()}">
+      <div [ngClass]="{'movie-grid': !isMobile(), 'on-mobile': isMobile()}">
         <div class="movie-img">
           <img src="https://image.tmdb.org/t/p/original/{{movie().poster_path}}" [alt]="movie().title">
         </div>

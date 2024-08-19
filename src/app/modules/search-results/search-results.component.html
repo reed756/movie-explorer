@@ -1,7 +1,7 @@
 <div class="container">
   <div class="search-results-div">
     @if (searchResults().length > 0 && !isLoading()) {
-    <ul class="search-results-list">
+    <ul class="search-results-list" [ngClass]="{'on-mobile' : isMobile()}">
       <li class="search-results-list-item" *ngFor="let movie of searchResults()">
         <mat-card class="search-results-card">
           <mat-card-header>

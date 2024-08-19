@@ -1,6 +1,6 @@
 import { Component, computed, inject, Input } from '@angular/core';
-import { MovieService } from '../../shared/services/movie.service';
-import { NgForOf, DatePipe, NgIf, DecimalPipe, NgStyle } from '@angular/common';
+import { MovieService } from '../../shared/services/movie/movie.service';
+import { NgForOf, DatePipe, NgIf, DecimalPipe, NgStyle, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -9,18 +9,22 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DeviceService } from '../../shared/services/device/device.service';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, NgStyle, MatProgressSpinnerModule],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, NgStyle, MatProgressSpinnerModule, NgClass],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss'
 })
 export class SearchResultsComponent {
   private movieService = inject(MovieService);
+  private deviceService = inject(DeviceService);
+
   searchResults = computed(() => this.movieService.searchResults());
   isLoading = this.movieService.isLoading;
+  isMobile = this.deviceService.isMobileSignal;
 
   @Input()
   set searchTerm(searchString: string) {

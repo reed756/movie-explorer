@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MovieListComponent } from '../../shared/components/movie-list/movie-list.component';
-import { MovieService } from '../../shared/services/movie.service';
+import { MovieService } from '../../shared/services/movie/movie.service';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MovieListConfig } from '../../shared/interfaces/movie';
 

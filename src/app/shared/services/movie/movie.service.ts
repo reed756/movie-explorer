@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, filter, map, Observable, shareReplay, switchMap, tap, throwError } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import { Movie, MovieResponse } from '../interfaces/movie';
-import { environment } from '../../../environment';
+import { Movie, MovieResponse } from '../../interfaces/movie';
+import { environment } from '../../../../environment';
 
 @Injectable({
   providedIn: 'root'
