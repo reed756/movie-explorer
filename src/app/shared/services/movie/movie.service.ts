@@ -63,7 +63,7 @@ export class MovieService {
     catchError(err => this.handleError(err))
   )
 
-  private popularMovies$ = toObservable(this.popularMovieToggle).pipe(
+  public popularMovies$ = toObservable(this.popularMovieToggle).pipe(
     tap(() => this.isLoading.set(true)),
     filter(Boolean),
     switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}/movie/${toggle}`, this.options)),

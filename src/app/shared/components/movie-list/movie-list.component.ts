@@ -6,13 +6,13 @@ import { MovieService } from '../../services/movie/movie.service';
 import { DatePipe, DecimalPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { Movie, MovieListConfig } from '../../interfaces/movie';
 import { DeviceService } from '../../services/device/device.service';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
@@ -29,8 +29,7 @@ export class MovieListComponent {
 
   isMobile = this.deviceService.isMobileSignal;
 
-  changeToggle(ev?: any) {
-    console.log(ev);
-    this.toggle.set(ev.value);
+  changeToggle(ev?: MatButtonToggleChange | MatSelectChange) {
+    this.toggle.set(ev?.value);
   }
 }
