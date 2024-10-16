@@ -1,5 +1,23 @@
-// equivalent of older: const express = require('express')
 import express from 'express';
+import { getMovies } from './controllers/movies.controllers';
+import * as dotenv from "dotenv";
+import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
+dotenv.config();
+
+export const apiKey = process.env.API_KEY;
+export const apiUrl = process.env.API_URL;
+
+export const client = axios.create({
+  baseURL: apiUrl,
+});
+
+export const config: AxiosRequestConfig = {
+  headers: {
+    'Accept': 'application/vnd.github+json',
+    'Authorization': apiKey,
+  } as RawAxiosRequestHeaders,
+};
+
 const app = express();
 // Allow any method from any host and log requests
 app.use((req, res, next) => {
@@ -15,9 +33,10 @@ app.use((req, res, next) => {
 })
 // Handle POST requests that come in formatted as JSON
 app.use(express.json());
-app.use('/', (req, res) => {
-  res.status(200).send({ message: 'Hello World!' });
-});
+// app.use('/', (req, res) => {
+//   res.status(200).send({ message: 'Hello World!' });
+// });
+app.get('/movie/:toggle', getMovies);
 // start our server on port 4201
 app.listen(4201, '127.0.0.1', function () {
   console.log("Server now listening on 4201");
