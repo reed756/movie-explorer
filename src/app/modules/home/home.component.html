@@ -1,7 +1,5 @@
 <div class="container">
   <app-search-bar></app-search-bar>
-  <app-movie-list [config]="trendingMovieConfigSignal()" [(toggle)]="trendingToggle"
-    [movies]="trendingMovies()"></app-movie-list>
-  <app-movie-list [config]="popularMovieConfigSignal()" [(toggle)]="popularToggle"
-    [movies]="popularMovies()"></app-movie-list>
+  <app-popular-movie-list></app-popular-movie-list>
+  <app-trending-movie-list></app-trending-movie-list>
 </div>

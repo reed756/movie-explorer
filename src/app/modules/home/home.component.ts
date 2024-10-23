@@ -3,11 +3,13 @@ import { MovieListComponent } from '../../shared/components/movie-list/movie-lis
 import { MovieService } from '../../shared/services/movie/movie.service';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MovieListConfig } from '../../shared/interfaces/movie';
+import { TrendingMovieListComponent } from './components/trending-movie-list/trending-movie-list.component';
+import { PopularMovieListComponent } from './components/popular-movie-list/popular-movie-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MovieListComponent, SearchBarComponent],
+  imports: [MovieListComponent, SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

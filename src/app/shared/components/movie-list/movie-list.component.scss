@@ -3,16 +3,9 @@
   justify-content: center;
   .card-list {
     width: 80vw;
-    .list-header {
-      display: flex;
-      align-items: center;
-      margin-top: 16px;
-      h1 {
-        margin-right: 16px;
-      }
-    }
     ul {
       padding-left: 2px;
+      padding-bottom: 0.5rem;
       display: flex;
       overflow-x: scroll;
       min-height: 400px;
