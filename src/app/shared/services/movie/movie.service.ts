@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, filter, map, Observable, shareReplay, switchMap, tap, throwError } from 'rxjs';
+import { catchError, filter, map, Observable, shareReplay, startWith, switchMap, tap, throwError } from 'rxjs';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import { Movie, MovieResponse } from '../../interfaces/movie';
+import { LoadingState, Movie, MovieResponse } from '../../interfaces/movie';
 import { environment } from '../../../../environment';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { environment } from '../../../../environment';
 })
 export class MovieService {
 
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   private options = {
     headers: {
@@ -24,64 +24,67 @@ export class MovieService {
   selectedMovieId = signal<number | undefined>(undefined);
   trendingMovieToggle = signal<string | undefined>('day');
   popularMovieToggle = signal<string | undefined>('now_playing');
-  isLoading = signal<boolean>(false);
 
   public searchResults$ = toObservable(this.searchTerm).pipe(
-    tap(() => this.isLoading.set(true)),
     filter(Boolean),
     switchMap(searchTerm => this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options)),
-    map(data =>
-      data.results.map((movie: Movie) => ({
+    map(data => {
+      const movies = data.results.map((movie: Movie) => ({
         ...movie
       }))
+      return ({ data: movies, loading: false });
+    }
     ),
-    tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => this.handleError(err))
+    catchError(err => this.handleError(err)),
+    startWith({ loading: true })
   );
 
   private movieSelected$ = toObservable(this.selectedMovieId).pipe(
-    tap(() => this.isLoading.set(true)),
     filter(Boolean),
-    switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options)),
-    tap(() => this.isLoading.set(false)),
+    switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options).pipe(
+      map((data) => ({ data, loading: false }))
+    )),
     shareReplay(1),
-    catchError(err => this.handleError(err))
+    catchError(err => this.handleError(err)),
+    startWith({ loading: true })
   )
 
   private trendingMovies$ = toObservable(this.trendingMovieToggle).pipe(
-    tap(() => this.isLoading.set(true)),
     filter(Boolean),
     switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/${toggle}`, this.options)),
-    map(data =>
-      data.results.map((movie: Movie) => ({
+    map(data => {
+      const movies = data.results.map((movie: Movie) => ({
         ...movie
       }))
+      return ({ data: movies, loading: false });
+    }
     ),
-    tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => this.handleError(err))
+    catchError(err => this.handleError(err)),
+    startWith({ loading: true })
   )
 
   public popularMovies$ = toObservable(this.popularMovieToggle).pipe(
-    tap(() => this.isLoading.set(true)),
     filter(Boolean),
     switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}movie/${toggle}`, this.options)),
-    map((data) =>
-      data.results.map((movie: Movie) => ({
+    map((data) => {
+      const movies = data.results.map((movie: Movie) => ({
         ...movie
       }))
+      return ({ data: movies, loading: false });
+    }
     ),
-    tap(() => this.isLoading.set(false)),
     shareReplay(1),
-    catchError(err => this.handleError(err))
+    catchError(err => this.handleError(err)),
+    startWith({ loading: true })
   );
 
   // Converted Signals
-  trendingMovies = toSignal(this.trendingMovies$, { initialValue: [] as Movie[] });
-  popularMovies = toSignal(this.popularMovies$, { initialValue: [] as Movie[] });
-  searchResults = toSignal(this.searchResults$, { initialValue: [] as Movie[] });
-  selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as Movie });
+  trendingMovies = toSignal(this.trendingMovies$, { initialValue: {} as LoadingState<Movie[]> });
+  popularMovies = toSignal(this.popularMovies$, { initialValue: {} as LoadingState<Movie[]> });
+  searchResults = toSignal(this.searchResults$, { initialValue: {} as LoadingState<Movie[]> });
+  selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as LoadingState<Movie> });
 
   // Methods
   public movieSelected(id: number) {

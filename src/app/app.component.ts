@@ -17,7 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class AppComponent {
 
   movieService = inject(MovieService);
-  isLoading = this.movieService.isLoading;
+  // isLoading = this.movieService.isLoading;
 
   title = 'movie-explorer';
 }

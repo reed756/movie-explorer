@@ -5,11 +5,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { DeviceService } from '../../shared/services/device/device.service';
+import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe, DecimalPipe, MatProgressSpinnerModule, NgClass],
+  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe, DecimalPipe, MatProgressSpinnerModule, NgClass, MatProgressSpinnerModule],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.scss',
   animations: [
@@ -23,9 +24,8 @@ export class MovieDetailsComponent {
 
   movieService = inject(MovieService);
   deviceService = inject(DeviceService);
-  movie = this.movieService.selectedMovie;
-  isLoading = this.movieService.isLoading;
-  votingAverage = computed(() => this.movie().vote_average * 10);
+  movie = computed<LoadingState<Movie>>(() => this.movieService.selectedMovie());
+  votingAverage = computed<number>(() => (this.movie()?.data?.vote_average ?? 0) * 10);
   isMobile = this.deviceService.isMobileSignal;
 
   @Input()

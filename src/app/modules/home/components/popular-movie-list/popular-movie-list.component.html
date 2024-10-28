@@ -1,3 +1,6 @@
+<app-movie-list [movies]="popularMovies()" [toggles]="popularMovieListConfig()" [toggleTemplate]="listToggles">
+</app-movie-list>
+
 <ng-template #listToggles let-toggles>
   <div class="list-header" [ngClass]="{'list-header': !isMobile()}">
     <h1>What's Popular</h1>
@@ -16,6 +19,3 @@
     }
   </div>
 </ng-template>
-
-<app-movie-list [movies]="popularMovies()" [toggles]="popularMovieListConfig()" [toggleTemplate]="listToggles">
-</app-movie-list>

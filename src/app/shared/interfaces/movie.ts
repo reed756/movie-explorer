@@ -1,3 +1,8 @@
+export interface LoadingState<T = unknown> {
+  loading: boolean;
+  data?: T;
+}
+
 export interface MovieResponse {
   page: Number;
   results: Movie[];

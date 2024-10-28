@@ -1,8 +1,8 @@
 <div class="container">
   <div class="search-results-div">
-    @if (searchResults().length > 0 && !isLoading()) {
+    @if (!searchResults().loading && searchResults().data) {
     <ul class="search-results-list" [ngClass]="{'on-mobile' : isMobile()}">
-      <li class="search-results-list-item" *ngFor="let movie of searchResults()">
+      <li class="search-results-list-item" *ngFor="let movie of searchResults().data">
         <mat-card class="search-results-card">
           <mat-card-header>
             @if (movie.backdrop_path) {
@@ -29,9 +29,9 @@
         </mat-card>
       </li>
     </ul>
-    } @else if (searchResults().length === 0 && !isLoading()) {
+    } @else if (!searchResults().loading && !searchResults().data) {
     <p>There are no movies that matched your query.</p>
-    } @else if (isLoading()) {
+    } @else if (searchResults().loading) {
     <mat-spinner></mat-spinner>
     }
   </div>

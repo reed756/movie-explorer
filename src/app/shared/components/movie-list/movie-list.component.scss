@@ -3,6 +3,13 @@
   justify-content: center;
   .card-list {
     width: 80vw;
+    .spinner-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 37.5vh;
+    }
     ul {
       padding-left: 2px;
       padding-bottom: 0.5rem;

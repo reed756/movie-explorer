@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DeviceService } from '../../shared/services/device/device.service';
+import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-search-results',
@@ -22,8 +23,7 @@ export class SearchResultsComponent {
   private movieService = inject(MovieService);
   private deviceService = inject(DeviceService);
 
-  searchResults = computed(() => this.movieService.searchResults());
-  isLoading = this.movieService.isLoading;
+  searchResults = computed<LoadingState<Movie[]>>(() => this.movieService.searchResults());
   isMobile = this.deviceService.isMobileSignal;
 
   @Input()

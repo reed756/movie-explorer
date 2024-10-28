@@ -10,18 +10,19 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
-import { Movie } from '../../interfaces/movie';
+import { LoadingState, Movie } from '../../interfaces/movie';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, MovieCardComponent, NgClass, MatSelectModule, NgTemplateOutlet],
+  imports: [MatGridListModule, MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, NgIf, DecimalPipe, MatButtonToggleModule, FormsModule, SearchBarComponent, MovieCardComponent, NgClass, MatSelectModule, NgTemplateOutlet, MatProgressSpinnerModule],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
   providers: [MovieService, HttpClient]
 })
 export class MovieListComponent {
-  movies = input.required<Movie[]>();
+  movies = input<LoadingState<Movie[]>>();
   @Input() toggles: any;
   @Input() toggleTemplate!: TemplateRef<any>;
 }
