@@ -6,7 +6,6 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { DeviceService } from '../../../../shared/services/device/device.service';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadingState, Movie } from '../../../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-popular-movie-list',
@@ -20,7 +19,12 @@ export class PopularMovieListComponent {
   private movieService = inject(MovieService);
   public deviceService = inject(DeviceService);
 
-  popularMovies = computed<LoadingState<Movie[]>>(() => this.movieService.popularMovies());
+  popularMovies = computed(() => {
+    return {
+      movieList: this.movieService.popularMovies(),
+      config: this.popularMovieListConfig()
+    }
+  });
 
   public popularMovieListConfig: any = signal({
     toggles: [

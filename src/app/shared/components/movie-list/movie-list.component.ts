@@ -22,7 +22,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   providers: [MovieService, HttpClient]
 })
 export class MovieListComponent {
-  movies = input<LoadingState<Movie[]>>();
-  @Input() toggles: any;
-  @Input() toggleTemplate!: TemplateRef<any>;
+  data = input<any>();
+  @Input() listTemplate!: TemplateRef<any>;
 }

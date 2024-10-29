@@ -1,13 +1,14 @@
 <div class="card-list-container">
   <div class="card-list">
-    @if (movies()?.loading) {
+    @if (data()?.movieList.loading) {
     <div class="spinner-div">
       <mat-spinner></mat-spinner> Loading...
     </div>
     } @else {
-    <ng-container [ngTemplateOutlet]="toggleTemplate" [ngTemplateOutletContext]="{ $implicit: toggles}"></ng-container>
+    <ng-container [ngTemplateOutlet]="listTemplate"
+      [ngTemplateOutletContext]="{ $implicit: data().config}"></ng-container>
     <ul>
-      <li *ngFor="let movie of movies()?.data">
+      <li *ngFor="let movie of data()?.movieList.data">
         <app-movie-card [movie]="movie"></app-movie-card>
       </li>
     </ul>

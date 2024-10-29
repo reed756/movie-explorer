@@ -6,7 +6,6 @@ import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/
 import { DeviceService } from '../../../../shared/services/device/device.service';
 import { NgClass } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadingState, Movie } from '../../../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-trending-movie-list',
@@ -20,7 +19,12 @@ export class TrendingMovieListComponent {
   private movieService = inject(MovieService);
   public deviceService = inject(DeviceService);
 
-  trendingMovies = computed<LoadingState<Movie[]>>(() => this.movieService.trendingMovies());
+  trendingMovies = computed(() => {
+    return {
+      movieList: this.movieService.trendingMovies(),
+      config: this.trendingMovieListConfig()
+    }
+  });
 
   public trendingMovieListConfig: any = signal({
     toggles: [
