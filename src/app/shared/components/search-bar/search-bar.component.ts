@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,13 +18,13 @@ export class SearchBarComponent {
   private router = inject(Router);
   private deviceService = inject(DeviceService);
 
-  isMobile = this.deviceService.isMobileSignal;
+  isMobile = computed<boolean>(() => this.deviceService.isMobileSignal());
 
   searchForm = new FormGroup({
     searchTerm: new FormControl<string | null | undefined>('', [Validators.required, Validators.minLength(1)])
   })
 
-  search() {
+  search(): void {
     this.router.navigate(['search-results', this.searchForm.value.searchTerm]);
   }
 }

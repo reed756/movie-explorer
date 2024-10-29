@@ -87,11 +87,11 @@ export class MovieService {
   selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as LoadingState<Movie> });
 
   // Methods
-  public movieSelected(id: number) {
+  public movieSelected(id: number): void {
     this.selectedMovieId.set(id);
   }
 
-  public searchTermFilled(searchTerm: string | null | undefined) {
+  public searchTermFilled(searchTerm: string | null | undefined): void {
     this.searchTerm.set(searchTerm);
   }
 

@@ -7,15 +7,15 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class DeviceService {
   private deviceService = inject(DeviceDetectorService);
 
-  isMobileSignal = signal(false);
-  isTabletSignal = signal(false);
-  isDesktopSignal = signal(false);
+  isMobileSignal = signal<boolean>(false);
+  isTabletSignal = signal<boolean>(false);
+  isDesktopSignal = signal<boolean>(false);
 
   constructor() {
     this.setSignals();
   }
 
-  setSignals() {
+  setSignals(): void {
     this.isMobileSignal.set(this.deviceService.isMobile());
     this.isTabletSignal.set(this.deviceService.isTablet());
     this.isDesktopSignal.set(this.deviceService.isDesktop());

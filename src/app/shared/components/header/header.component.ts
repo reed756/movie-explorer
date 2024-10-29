@@ -13,6 +13,6 @@ import { NgClass } from '@angular/common';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  router = inject(Router);
-  showSearchBar = false;
+  private router = inject(Router);
+  showSearchBar: boolean = false;
 }

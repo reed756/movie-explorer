@@ -21,11 +21,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
   providers: [DecimalPipe]
 })
 export class MovieCardComponent {
-  decimalPipe = inject(DecimalPipe);
+  private decimalPipe = inject(DecimalPipe);
 
   movie = input.required<Movie>();
 
-  averageVote = computed(() => {
+  averageVote = computed<string>(() => {
     if (this.movie().vote_average === 0) {
       return 'NR'
     } else {
