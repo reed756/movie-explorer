@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MovieService } from './movie.service';
+import { movieDataClient } from './movie.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Movie } from '../../interfaces/movie';
 
-describe('MovieService', () => {
+describe('movieDataClient', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-  let movieService: MovieService;
+  let movieDataClient: movieDataClient;
 
   beforeEach(() => {
     // Create a spy object for HttpClient
@@ -17,16 +17,16 @@ describe('MovieService', () => {
       providers: [
         // Provide the spy object instead of the real HttpClient
         { provide: HttpClient, useValue: httpClientSpy },
-        MovieService,
+        movieDataClient,
       ],
     });
 
-    // Get the MovieService instance from the TestBed
-    movieService = TestBed.inject(MovieService);
+    // Get the movieDataClient instance from the TestBed
+    movieDataClient = TestBed.inject(movieDataClient);
   });
 
   it('should be created', () => {
-    expect(movieService).toBeTruthy();
+    expect(movieDataClient).toBeTruthy();
   });
 
   it('should return expected movies (HttpClient called once)', (done: DoneFn) => {
@@ -77,7 +77,7 @@ describe('MovieService', () => {
     httpClientSpy.get.and.returnValue(of(expectedMovies));
 
     // Call the method and subscribe to the observable
-    movieService.popularMovies$.subscribe(
+    movieDataClient.popularMovies$.subscribe(
       (movies: Movie[]) => {
         // Expectations for the returned movies
         expect(movies).toEqual(jasmine.arrayWithExactContents(expectedMovies));

@@ -3,13 +3,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { Movie } from '../../interfaces/movie';
-import { CurrencyPipe, DatePipe, DecimalPipe, NgOptimizedImage } from '@angular/common';
+import { DatePipe, DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, RouterLink, DecimalPipe, DatePipe, NgOptimizedImage],
+  imports: [MatCardModule, MatButtonModule, RouterLink, DatePipe, NgOptimizedImage],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
   animations: [
@@ -23,9 +23,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class MovieCardComponent {
   private decimalPipe = inject(DecimalPipe);
 
-  movie = input.required<Movie>();
+  readonly movie = input.required<Movie>();
 
-  averageVote = computed<string>(() => {
+  protected averageVote = computed<string>(() => {
     if (this.movie().vote_average === 0) {
       return 'NR'
     } else {

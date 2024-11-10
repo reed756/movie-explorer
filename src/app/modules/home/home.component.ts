@@ -1,21 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { MovieListComponent } from '../../shared/components/movie-list/movie-list.component';
-import { MovieService } from '../../shared/services/movie/movie.service';
+import { movieDataClient } from '../../shared/services/movie/movie.service';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MovieListConfig } from '../../shared/interfaces/movie';
-import { TrendingMovieListComponent } from './components/trending-movie-list/trending-movie-list.component';
-import { PopularMovieListComponent } from './components/popular-movie-list/popular-movie-list.component';
+import { TrendingMovieListComponent } from './trending-movie-list/trending-movie-list.component';
+import { PopularMovieListComponent } from './popular-movie-list/popular-movie-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MovieListComponent, SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
+  imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  private movieService = inject(MovieService);
+  private movieDataClient = inject(movieDataClient);
 
   private trendingMovieListConfig: MovieListConfig = {
     heading: 'Trending',
@@ -34,12 +33,12 @@ export class HomeComponent {
     ]
   }
 
-  trendingMovieConfigSignal = signal(this.trendingMovieListConfig);
-  popularMovieConfigSignal = signal(this.popularMovieListConfig);
+  protected trendingMovieConfigSignal = signal(this.trendingMovieListConfig);
+  protected popularMovieConfigSignal = signal(this.popularMovieListConfig);
 
-  protected trendingToggle = this.movieService.trendingMovieToggle;
-  protected popularToggle = this.movieService.popularMovieToggle;
+  protected trendingToggle = computed(() => this.movieDataClient.trendingMovieToggle);
+  protected popularToggle = computed(() => this.movieDataClient.popularMovieToggle);
 
-  trendingMovies = this.movieService.trendingMovies;
-  popularMovies = this.movieService.popularMovies;
+  protected trendingMovies = computed(() => this.movieDataClient.trendingMovies);
+  protected popularMovies = computed(() => this.movieDataClient.popularMovies);
 }

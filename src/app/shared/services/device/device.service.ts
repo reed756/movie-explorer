@@ -4,8 +4,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 @Injectable({
   providedIn: 'root'
 })
-export class DeviceService {
-  private deviceService = inject(DeviceDetectorService);
+export class deviceDataClient {
+  private deviceDataClient = inject(DeviceDetectorService);
 
   isMobileSignal = signal<boolean>(false);
   isTabletSignal = signal<boolean>(false);
@@ -15,10 +15,10 @@ export class DeviceService {
     this.setSignals();
   }
 
-  setSignals(): void {
-    this.isMobileSignal.set(this.deviceService.isMobile());
-    this.isTabletSignal.set(this.deviceService.isTablet());
-    this.isDesktopSignal.set(this.deviceService.isDesktop());
+  private setSignals(): void {
+    this.isMobileSignal.set(this.deviceDataClient.isMobile());
+    this.isTabletSignal.set(this.deviceDataClient.isTablet());
+    this.isDesktopSignal.set(this.deviceDataClient.isDesktop());
   }
 
 }

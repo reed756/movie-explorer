@@ -2,7 +2,7 @@
 </app-movie-list>
 
 <ng-template #listTemplate let-toggleConfig>
-  <div class="list-header" [ngClass]="{'list-header': !isMobile()}">
+  <div class="list-header" [class.list-header]="!isMobile()">
     <h1>What's Popular</h1>
     @if (isMobile()) {
     <mat-select [value]="toggleConfig.selectedToggle" (selectionChange)="changeToggle($event)">

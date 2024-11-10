@@ -1,32 +1,31 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { MovieListComponent } from '../../../../shared/components/movie-list/movie-list.component';
-import { MovieService } from '../../../../shared/services/movie/movie.service';
+import { MovieListComponent } from '../../../shared/components/movie-list/movie-list.component';
+import { movieDataClient } from '../../../shared/services/movie/movie.service';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { DeviceService } from '../../../../shared/services/device/device.service';
-import { NgClass } from '@angular/common';
+import { deviceDataClient } from '../../../shared/services/device/device.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-popular-movie-list',
   standalone: true,
-  imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, NgClass, MatProgressSpinnerModule],
+  imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, MatProgressSpinnerModule],
   templateUrl: './popular-movie-list.component.html',
   styleUrl: './popular-movie-list.component.scss'
 })
 export class PopularMovieListComponent {
 
-  private movieService = inject(MovieService);
-  public deviceService = inject(DeviceService);
+  private movieDataClient = inject(movieDataClient);
+  public deviceDataClient = inject(deviceDataClient);
 
-  popularMovies = computed(() => {
+  protected popularMovies = computed(() => {
     return {
-      movieList: this.movieService.popularMovies(),
+      movieList: this.movieDataClient.popularMovies(),
       config: this.popularMovieListConfig()
     }
   });
 
-  public popularMovieListConfig: any = signal({
+  protected popularMovieListConfig: any = signal({
     toggles: [
       { name: 'In Theaters', value: 'now_playing' },
       { name: 'For Rent', value: 'popular' },
@@ -36,10 +35,10 @@ export class PopularMovieListComponent {
     selectedToggle: 'now_playing'
   })
 
-  isMobile = this.deviceService.isMobileSignal;
+  protected isMobile = computed(() => this.deviceDataClient.isMobileSignal());
 
-  changeToggle(ev?: MatButtonToggleChange | MatSelectChange): void {
+  public changeToggle(ev?: MatButtonToggleChange | MatSelectChange): void {
     this.popularMovieListConfig.update((value: any) => ({ ...value, selectedToggle: ev?.value }));
-    this.movieService.popularMovieToggle.set(ev?.value);
+    this.movieDataClient.popularMovieToggle.set(ev?.value);
   }
 }

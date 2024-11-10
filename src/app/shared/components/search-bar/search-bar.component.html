@@ -1,5 +1,5 @@
 <div class="form-div">
-  <form [formGroup]="searchForm" (ngSubmit)="search()" [ngClass]="{'on-mobile': isMobile()}">
+  <form [formGroup]="searchForm" (ngSubmit)="search()" [class.on-mobile]="isMobile()">
     <mat-form-field appearance="outline">
       <input type="text" matInput formControlName="searchTerm" placeholder="Search Movie Explorer">
       @if (searchForm.controls.searchTerm.hasError('required')) {

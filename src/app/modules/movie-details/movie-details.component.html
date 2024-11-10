@@ -1,37 +1,38 @@
 <div class="container">
   <section @myInsertRemoveTrigger>
-    @if (movie().loading) {
+    @if (selectedMovie().loading) {
     <div class="spinner-div">
       <mat-spinner></mat-spinner>
     </div>
     } @else {
-    <div class="movie-div" [ngClass]="{'desktop-padding': !isMobile()}">
-      <div [ngClass]="{'movie-grid': !isMobile(), 'on-mobile': isMobile()}">
+    <div class="movie-div" [class.desktop-padding]="!isMobile()">
+      <div [class.movie-grid]="!isMobile()" [class.on-mobile]="isMobile()">
         <div class="movie-img">
-          <img src="https://image.tmdb.org/t/p/original/{{movie().data?.poster_path}}" [alt]="movie().data?.title">
+          <img src="https://image.tmdb.org/t/p/original/{{selectedMovie().data?.poster_path}}"
+            [alt]="selectedMovie().data?.title">
         </div>
         <div class="movie-content">
           <h1>
-            {{movie().data?.title}}
+            {{selectedMovie().data?.title}}
           </h1>
           <h3>
-            {{movie().data?.release_date | date}} &#8226;
-            @for (genre of movie().data?.genres; track $index) {
-            @if($index + 1 >= (movie().data?.genres?.length ?? 0)) {
+            {{selectedMovie().data?.release_date | date}} &#8226;
+            @for (genre of selectedMovie().data?.genres; track $index) {
+            @if($index + 1 >= (selectedMovie().data?.genres?.length ?? 0)) {
             {{genre.name}}
             } @else {
             {{genre.name}},
             }
             }
-            &#8226; {{movie().data?.runtime}}m
+            &#8226; {{selectedMovie().data?.runtime}}m
           </h3>
           <h2>
             {{votingAverage() | number : '1.0-0'}}%
           </h2>
-          <em>{{movie().data?.tagline}}</em>
+          <em>{{selectedMovie().data?.tagline}}</em>
           <h3>Overview</h3>
           <p>
-            {{movie().data?.overview}}
+            {{selectedMovie().data?.overview}}
           </p>
         </div>
       </div>

@@ -1,16 +1,15 @@
-import { Component, computed, inject, Input, Signal } from '@angular/core';
-import { MovieService } from '../../shared/services/movie/movie.service';
-import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgIf } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import { Component, computed, inject, Input } from '@angular/core';
+import { movieDataClient } from '../../shared/services/movie/movie.service';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { DeviceService } from '../../shared/services/device/device.service';
+import { deviceDataClient } from '../../shared/services/device/device.service';
 import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [AsyncPipe, MatCardModule, NgIf, DatePipe, CurrencyPipe, DecimalPipe, MatProgressSpinnerModule, NgClass, MatProgressSpinnerModule],
+  imports: [DatePipe, DecimalPipe, MatProgressSpinnerModule],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.scss',
   animations: [
@@ -22,15 +21,15 @@ import { LoadingState, Movie } from '../../shared/interfaces/movie';
 })
 export class MovieDetailsComponent {
 
-  movieService = inject(MovieService);
-  deviceService = inject(DeviceService);
-  movie = computed<LoadingState<Movie>>(() => this.movieService.selectedMovie());
-  votingAverage = computed<number>(() => (this.movie()?.data?.vote_average ?? 0) * 10);
-  isMobile = this.deviceService.isMobileSignal;
+  private movieDataClient = inject(movieDataClient);
+  public deviceDataClient = inject(deviceDataClient);
+  protected selectedMovie = computed<LoadingState<Movie>>(() => this.movieDataClient.selectedMovie());
+  protected votingAverage = computed<number>(() => (this.selectedMovie()?.data?.vote_average ?? 0) * 10);
+  protected isMobile = computed(() => this.deviceDataClient.isMobileSignal());
 
   @Input()
   set id(movieId: number) {
-    this.movieService.movieSelected(movieId);
+    this.movieDataClient.movieSelected(movieId);
   }
 
 }

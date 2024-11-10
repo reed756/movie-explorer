@@ -1,14 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, filter, map, Observable, shareReplay, startWith, switchMap, tap, throwError } from 'rxjs';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { catchError, filter, map, Observable, shareReplay, startWith, switchMap, throwError } from 'rxjs';
+import { toSignal, toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LoadingState, Movie, MovieResponse } from '../../interfaces/movie';
 import { environment } from '../../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService {
+export class movieDataClient {
 
   private http = inject(HttpClient);
 
@@ -37,7 +37,8 @@ export class MovieService {
     ),
     shareReplay(1),
     catchError(err => this.handleError(err)),
-    startWith({ loading: true })
+    startWith({ loading: true }),
+    takeUntilDestroyed()
   );
 
   private movieSelected$ = toObservable(this.selectedMovieId).pipe(
@@ -47,7 +48,8 @@ export class MovieService {
     )),
     shareReplay(1),
     catchError(err => this.handleError(err)),
-    startWith({ loading: true })
+    startWith({ loading: true }),
+    takeUntilDestroyed()
   )
 
   private trendingMovies$ = toObservable(this.trendingMovieToggle).pipe(
@@ -62,7 +64,8 @@ export class MovieService {
     ),
     shareReplay(1),
     catchError(err => this.handleError(err)),
-    startWith({ loading: true })
+    startWith({ loading: true }),
+    takeUntilDestroyed()
   )
 
   public popularMovies$ = toObservable(this.popularMovieToggle).pipe(
@@ -77,7 +80,8 @@ export class MovieService {
     ),
     shareReplay(1),
     catchError(err => this.handleError(err)),
-    startWith({ loading: true })
+    startWith({ loading: true }),
+    takeUntilDestroyed()
   );
 
   // Converted Signals
