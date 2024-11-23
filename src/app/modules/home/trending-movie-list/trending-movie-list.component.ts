@@ -7,11 +7,10 @@ import { deviceDataClient } from '../../../shared/services/device/device.service
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-trending-movie-list',
-  standalone: true,
-  imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, MatProgressSpinnerModule],
-  templateUrl: './trending-movie-list.component.html',
-  styleUrl: './trending-movie-list.component.scss'
+    selector: 'app-trending-movie-list',
+    imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, MatProgressSpinnerModule],
+    templateUrl: './trending-movie-list.component.html',
+    styleUrl: './trending-movie-list.component.scss'
 })
 export class TrendingMovieListComponent {
 

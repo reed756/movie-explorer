@@ -7,17 +7,16 @@ import { deviceDataClient } from '../../shared/services/device/device.service';
 import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
-  selector: 'app-movie-details',
-  standalone: true,
-  imports: [DatePipe, DecimalPipe, MatProgressSpinnerModule],
-  templateUrl: './movie-details.component.html',
-  styleUrl: './movie-details.component.scss',
-  animations: [
-    trigger('myInsertRemoveTrigger', [
-      transition(':enter', [style({ opacity: 0 }), animate('1500ms', style({ opacity: 1 }))]),
-      transition(':leave', [animate('1500ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+    selector: 'app-movie-details',
+    imports: [DatePipe, DecimalPipe, MatProgressSpinnerModule],
+    templateUrl: './movie-details.component.html',
+    styleUrl: './movie-details.component.scss',
+    animations: [
+        trigger('myInsertRemoveTrigger', [
+            transition(':enter', [style({ opacity: 0 }), animate('1500ms', style({ opacity: 1 }))]),
+            transition(':leave', [animate('1500ms', style({ opacity: 0 }))]),
+        ]),
+    ]
 })
 export class MovieDetailsComponent {
 

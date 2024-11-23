@@ -6,11 +6,10 @@ import { TrendingMovieListComponent } from './trending-movie-list/trending-movie
 import { PopularMovieListComponent } from './popular-movie-list/popular-movie-list.component';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 

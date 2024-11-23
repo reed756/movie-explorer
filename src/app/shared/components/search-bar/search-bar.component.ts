@@ -7,11 +7,10 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { deviceDataClient } from '../../services/device/device.service';
 @Component({
-  selector: 'app-search-bar',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
-  templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.scss'
+    selector: 'app-search-bar',
+    imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
+    templateUrl: './search-bar.component.html',
+    styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent {
   private router = inject(Router);

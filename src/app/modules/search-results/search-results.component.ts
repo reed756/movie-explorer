@@ -9,11 +9,10 @@ import { deviceDataClient } from '../../shared/services/device/device.service';
 import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
-  selector: 'app-search-results',
-  standalone: true,
-  imports: [MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, MatProgressSpinnerModule],
-  templateUrl: './search-results.component.html',
-  styleUrl: './search-results.component.scss'
+    selector: 'app-search-results',
+    imports: [MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, MatProgressSpinnerModule],
+    templateUrl: './search-results.component.html',
+    styleUrl: './search-results.component.scss'
 })
 export class SearchResultsComponent {
   private movieDataClient = inject(movieDataClient);
