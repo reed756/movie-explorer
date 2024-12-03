@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { movieDataClient } from './movie.service';
+import { MovieDataClient } from './movie.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Movie } from '../../interfaces/movie';
 
 describe('movieDataClient', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-  let movieDataClient: movieDataClient;
+  let movieDataClient: MovieDataClient;
 
   beforeEach(() => {
     // Create a spy object for HttpClient

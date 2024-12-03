@@ -1,19 +1,19 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { movieDataClient } from '../../shared/services/movie/movie.service';
+import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MovieListConfig } from '../../shared/interfaces/movie';
 import { TrendingMovieListComponent } from './trending-movie-list/trending-movie-list.component';
 import { PopularMovieListComponent } from './popular-movie-list/popular-movie-list.component';
 
 @Component({
-    selector: 'app-home',
-    imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+  selector: 'app-home',
+  imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  private movieDataClient = inject(movieDataClient);
+  private movieDataClient = inject(MovieDataClient);
 
   private trendingMovieListConfig: MovieListConfig = {
     heading: 'Trending',

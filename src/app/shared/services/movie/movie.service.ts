@@ -8,7 +8,7 @@ import { environment } from '../../../../environment';
 @Injectable({
   providedIn: 'root'
 })
-export class movieDataClient {
+export class MovieDataClient {
 
   private http = inject(HttpClient);
 
