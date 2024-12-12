@@ -1,8 +1,8 @@
 import express from 'express';
-import { getMovies } from './controllers/movies.controllers';
+import { getMovieById, getPopularMovies, getTrendingMovies } from './controllers/movies.controllers';
 import * as dotenv from "dotenv";
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 export const apiKey = process.env.API_KEY;
 export const apiUrl = process.env.API_URL;
@@ -33,11 +33,10 @@ app.use((req, res, next) => {
 })
 // Handle POST requests that come in formatted as JSON
 app.use(express.json());
-// app.use('/', (req, res) => {
-//   res.status(200).send({ message: 'Hello World!' });
-// });
-app.get('/movie/:toggle', getMovies);
+app.get('/trending/movie/:toggle', getTrendingMovies);
+app.get('/movie/popular', getPopularMovies);
+app.get('/movie/:id', getMovieById);
 // start our server on port 4201
-app.listen(4201, '127.0.0.1', function () {
+app.listen(4201, '127.0.0.1', () => {
   console.log("Server now listening on 4201");
 });
