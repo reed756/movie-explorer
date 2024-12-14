@@ -24,6 +24,7 @@ export class MovieDataClient {
   selectedMovieId = signal<number | undefined>(undefined);
   trendingMovieToggle = signal<string | undefined>('day');
   popularMovieToggle = signal<string | undefined>('now_playing');
+  freeToWatchToggle = signal<string | undefined>('movie');
 
   public searchResults$ = toObservable(this.searchTerm).pipe(
     filter(Boolean),
@@ -33,10 +34,9 @@ export class MovieDataClient {
         ...movie
       }))
       return ({ data: movies, loading: false });
-    }
-    ),
+    }),
     shareReplay(1),
-    catchError(err => this.handleError(err)),
+    catchError((err: HttpErrorResponse) => this.handleError(err)),
     startWith({ loading: true }),
     takeUntilDestroyed()
   );
@@ -47,7 +47,7 @@ export class MovieDataClient {
       map((data) => ({ data, loading: false }))
     )),
     shareReplay(1),
-    catchError(err => this.handleError(err)),
+    catchError((err: HttpErrorResponse) => this.handleError(err)),
     startWith({ loading: true }),
     takeUntilDestroyed()
   )
@@ -60,10 +60,9 @@ export class MovieDataClient {
         ...movie
       }))
       return ({ data: movies, loading: false });
-    }
-    ),
+    }),
     shareReplay(1),
-    catchError(err => this.handleError(err)),
+    catchError((err: HttpErrorResponse) => this.handleError(err)),
     startWith({ loading: true }),
     takeUntilDestroyed()
   )
@@ -76,19 +75,34 @@ export class MovieDataClient {
         ...movie
       }))
       return ({ data: movies, loading: false });
-    }
-    ),
+    }),
     shareReplay(1),
-    catchError(err => this.handleError(err)),
+    catchError((err: HttpErrorResponse) => this.handleError(err)),
     startWith({ loading: true }),
     takeUntilDestroyed()
   );
+
+  public freeToWatch$ = toObservable(this.freeToWatchToggle).pipe(
+    filter(Boolean),
+    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}discover/${toggle}?with_watch_monetization_types=free`, this.options)),
+    map((data) => {
+      const movies = data.results.map((movie: Movie) => ({
+        ...movie
+      }))
+      return ({ data: movies, loading: false });
+    }),
+    shareReplay(1),
+    catchError((err: HttpErrorResponse) => this.handleError(err)),
+    startWith({ loading: true }),
+    takeUntilDestroyed()
+  )
 
   // Converted Signals
   trendingMovies = toSignal(this.trendingMovies$, { initialValue: {} as LoadingState<Movie[]> });
   popularMovies = toSignal(this.popularMovies$, { initialValue: {} as LoadingState<Movie[]> });
   searchResults = toSignal(this.searchResults$, { initialValue: {} as LoadingState<Movie[]> });
   selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as LoadingState<Movie> });
+  freeToWatch = toSignal(this.freeToWatch$, { initialValue: {} as LoadingState<Movie[]> });
 
   // Methods
   public movieSelected(id: number): void {

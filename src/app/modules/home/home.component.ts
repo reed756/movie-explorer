@@ -4,10 +4,11 @@ import { SearchBarComponent } from '../../shared/components/search-bar/search-ba
 import { MovieListConfig } from '../../shared/interfaces/movie';
 import { TrendingMovieListComponent } from './trending-movie-list/trending-movie-list.component';
 import { PopularMovieListComponent } from './popular-movie-list/popular-movie-list.component';
+import { FreeToWatchListComponent } from './free-to-watch-list/free-to-watch-list.component';
 
 @Component({
   selector: 'app-home',
-  imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent],
+  imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent, FreeToWatchListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
