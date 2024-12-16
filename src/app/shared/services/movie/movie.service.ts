@@ -28,13 +28,15 @@ export class MovieDataClient {
 
   public searchResults$ = toObservable(this.searchTerm).pipe(
     filter(Boolean),
-    switchMap(searchTerm => this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options)),
-    map(data => {
-      const movies = data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-      return ({ data: movies, loading: false });
-    }),
+    switchMap(searchTerm => this.http.get<MovieResponse>(`${this.apiUrl}search/movie?query=${searchTerm}`, this.options).pipe(
+      map(data => {
+        const movies = data.results.map((movie: Movie) => ({
+          ...movie
+        }))
+        return ({ data: movies, loading: false });
+      }),
+      startWith({ loading: true })
+    )),
     shareReplay(1),
     catchError((err: HttpErrorResponse) => this.handleError(err)),
     startWith({ loading: true }),
@@ -44,7 +46,8 @@ export class MovieDataClient {
   private movieSelected$ = toObservable(this.selectedMovieId).pipe(
     filter(Boolean),
     switchMap(movieId => this.http.get<Movie>(`${this.apiUrl}movie/${movieId}`, this.options).pipe(
-      map((data) => ({ data, loading: false }))
+      map((data) => ({ data, loading: false })),
+      startWith({ loading: true })
     )),
     shareReplay(1),
     catchError((err: HttpErrorResponse) => this.handleError(err)),
