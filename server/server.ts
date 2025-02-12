@@ -4,8 +4,8 @@ import * as dotenv from "dotenv";
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 dotenv.config({ path: '../.env' });
 
-export const apiKey = process.env.API_KEY;
-export const apiUrl = process.env.API_URL;
+export const apiKey = dotenv.config().parsed?.API_KEY;
+export const apiUrl = dotenv.config().parsed?.API_URL;
 
 export const client = axios.create({
   baseURL: apiUrl,
