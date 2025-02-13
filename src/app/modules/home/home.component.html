@@ -1,6 +1,34 @@
 <div class="container">
   <app-search-bar></app-search-bar>
   <app-popular-movie-list></app-popular-movie-list>
+  @defer {
   <app-trending-movie-list></app-trending-movie-list>
+  } @placeholder(minimum 500ms) {
+  <h1>
+    Trending
+  </h1>
+  } @loading(after 100ms; minimum 1s) {
+  <h1>
+    Loading List...
+  </h1>
+  } @error {
+  <h1>
+    Oops! Failed to download
+  </h1>
+  }
+  @defer {
   <app-free-to-watch-list></app-free-to-watch-list>
+  } @placeholder(minimum 500ms) {
+  <h1>
+    Free to Watch
+  </h1>
+  } @loading(after 100ms; minimum 1s) {
+  <h1>
+    Loading List...
+  </h1>
+  } @error {
+  <h1>
+    Oops! Failed to download
+  </h1>
+  }
 </div>
