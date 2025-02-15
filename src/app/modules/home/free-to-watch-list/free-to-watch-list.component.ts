@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MovieListComponent } from '../../../shared/components/movie-list/movie-list.component';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -10,7 +10,8 @@ import { MovieDataClient } from '../../../shared/services/movie/movie.service';
   selector: 'app-free-to-watch-list',
   imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, MatProgressSpinnerModule],
   templateUrl: './free-to-watch-list.component.html',
-  styleUrl: './free-to-watch-list.component.scss'
+  styleUrl: './free-to-watch-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FreeToWatchListComponent {
 

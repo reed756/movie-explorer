@@ -1,4 +1,4 @@
-import { Component, Input, input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input, TemplateRef } from '@angular/core';
 import { MovieDataClient } from '../../services/movie/movie.service';
 import { NgForOf, NgTemplateOutlet } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [NgForOf, FormsModule, MovieCardComponent, NgTemplateOutlet, MatProgressSpinnerModule],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
-  providers: [MovieDataClient, HttpClient]
+  providers: [MovieDataClient, HttpClient],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListComponent {
   readonly data = input<any>();

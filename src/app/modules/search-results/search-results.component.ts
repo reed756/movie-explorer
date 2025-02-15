@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input } from '@angular/core';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { NgForOf, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,8 @@ import { LoadingState, Movie } from '../../shared/interfaces/movie';
   selector: 'app-search-results',
   imports: [MatCardModule, NgForOf, MatButtonModule, DatePipe, RouterLink, MatProgressSpinnerModule],
   templateUrl: './search-results.component.html',
-  styleUrl: './search-results.component.scss'
+  styleUrl: './search-results.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchResultsComponent {
   private movieDataClient = inject(MovieDataClient);

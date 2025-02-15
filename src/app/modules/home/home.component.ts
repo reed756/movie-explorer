@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
 import { MovieListConfig } from '../../shared/interfaces/movie';
@@ -10,7 +10,8 @@ import { FreeToWatchListComponent } from './free-to-watch-list/free-to-watch-lis
   selector: 'app-home',
   imports: [SearchBarComponent, TrendingMovieListComponent, PopularMovieListComponent, FreeToWatchListComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
 

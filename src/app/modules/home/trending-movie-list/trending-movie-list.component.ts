@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MovieListComponent } from '../../../shared/components/movie-list/movie-list.component';
 import { MovieDataClient } from '../../../shared/services/movie/movie.service';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
@@ -10,7 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-trending-movie-list',
   imports: [MovieListComponent, MatSelectModule, MatButtonToggleModule, MatProgressSpinnerModule],
   templateUrl: './trending-movie-list.component.html',
-  styleUrl: './trending-movie-list.component.scss'
+  styleUrl: './trending-movie-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrendingMovieListComponent {
 

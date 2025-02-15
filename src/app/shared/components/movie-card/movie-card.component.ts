@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
@@ -17,7 +17,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
       transition(':leave', [animate('1500ms', style({ opacity: 0 }))]),
     ]),
   ],
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieCardComponent {
   private decimalPipe = inject(DecimalPipe);

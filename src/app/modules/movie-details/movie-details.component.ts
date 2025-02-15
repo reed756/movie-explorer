@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input } from '@angular/core';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -16,7 +16,8 @@ import { LoadingState, Movie } from '../../shared/interfaces/movie';
       transition(':enter', [style({ opacity: 0 }), animate('1500ms', style({ opacity: 1 }))]),
       transition(':leave', [animate('1500ms', style({ opacity: 0 }))]),
     ]),
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieDetailsComponent {
 

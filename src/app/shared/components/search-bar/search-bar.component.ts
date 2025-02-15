@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { deviceDataClient } from '../../services/device/device.service';
 @Component({
-    selector: 'app-search-bar',
-    imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
-    templateUrl: './search-bar.component.html',
-    styleUrl: './search-bar.component.scss'
+  selector: 'app-search-bar',
+  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
+  templateUrl: './search-bar.component.html',
+  styleUrl: './search-bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchBarComponent {
   private router = inject(Router);
