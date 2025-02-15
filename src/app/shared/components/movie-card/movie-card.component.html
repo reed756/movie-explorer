@@ -9,8 +9,8 @@
     <mat-card-subtitle>{{movie()?.release_date | date}}
     </mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image ngSrc="https://image.tmdb.org/t/p/original/{{movie()?.backdrop_path}}" height="250" width="450"
-    priority [alt]="movie()?.original_title">
+  <img mat-card-image [ngSrc]="'https://image.tmdb.org/t/p/original/' + movie()?.backdrop_path" height="250" width="450"
+    [priority]="idx()! < 3" [alt]="movie()?.original_title">
   <mat-card-content>
   </mat-card-content>
   <mat-card-actions>

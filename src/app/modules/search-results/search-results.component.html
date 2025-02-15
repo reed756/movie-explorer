@@ -2,7 +2,8 @@
   <div class="search-results-div">
     @if (!searchResults().loading && searchResults().data) {
     <ul class="search-results-list" [class.on-mobile]="isMobile()">
-      <li class="search-results-list-item" *ngFor="let movie of searchResults().data">
+      @for (movie of searchResults().data; track $index) {
+      <li class="search-results-list-item">
         <mat-card class="search-results-card">
           <mat-card-header>
             @if (movie.backdrop_path) {
@@ -28,6 +29,7 @@
           </mat-card-actions>
         </mat-card>
       </li>
+      }
     </ul>
     } @else if (!searchResults().loading && !searchResults().data) {
     <p>There are no movies that matched your query.</p>

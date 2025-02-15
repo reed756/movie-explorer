@@ -24,6 +24,7 @@ export class MovieCardComponent {
   private decimalPipe = inject(DecimalPipe);
 
   readonly movie = input<Movie>();
+  readonly idx = input<number>();
 
   protected averageVote = computed<string>(() => {
     if (this.movie()?.vote_average === 0) {
