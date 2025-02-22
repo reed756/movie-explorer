@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { MovieDataClient } from './movie.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { Movie } from '../../interfaces/movie';
+import { LoadingState, Movie } from '../../interfaces/movie';
 
 describe('movieDataClient', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
@@ -16,13 +16,12 @@ describe('movieDataClient', () => {
     TestBed.configureTestingModule({
       providers: [
         // Provide the spy object instead of the real HttpClient
-        { provide: HttpClient, useValue: httpClientSpy },
-        movieDataClient,
+        { provide: HttpClient, useValue: httpClientSpy }
       ],
     });
 
     // Get the movieDataClient instance from the TestBed
-    movieDataClient = TestBed.inject(movieDataClient);
+    movieDataClient = new MovieDataClient();
   });
 
   it('should be created', () => {
@@ -78,7 +77,7 @@ describe('movieDataClient', () => {
 
     // Call the method and subscribe to the observable
     movieDataClient.popularMovies$.subscribe(
-      (movies: Movie[]) => {
+      (movies: LoadingState<Movie[]>) => {
         // Expectations for the returned movies
         expect(movies).toEqual(jasmine.arrayWithExactContents(expectedMovies));
 
