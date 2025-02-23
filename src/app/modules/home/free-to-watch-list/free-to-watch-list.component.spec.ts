@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FreeToWatchListComponent } from './free-to-watch-list.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { MovieDataClient } from '../../../shared/services/movie/movie.service';
 
 describe('FreeToWatchListComponent', () => {
   let component: FreeToWatchListComponent;
@@ -8,9 +11,10 @@ describe('FreeToWatchListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FreeToWatchListComponent]
+      imports: [FreeToWatchListComponent],
+      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting()]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FreeToWatchListComponent);
     component = fixture.componentInstance;

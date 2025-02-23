@@ -6,7 +6,6 @@ describe('deviceDataClient', () => {
   let service: deviceDataClient;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
     service = TestBed.inject(deviceDataClient);
   });
 

@@ -20,7 +20,6 @@ export class MovieDataClient {
   };
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
-  private localApiUrl: string = 'https://api.themoviedb.org/3/';
   searchTerm = signal<string | null | undefined>(undefined);
   selectedMovieId = signal<number | undefined>(undefined);
   trendingMovieToggle = signal<string | undefined>('day');
