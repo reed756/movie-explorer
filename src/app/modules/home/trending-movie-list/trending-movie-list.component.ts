@@ -20,7 +20,7 @@ export class TrendingMovieListComponent {
 
   protected trendingMovies = computed(() => {
     return {
-      movieList: this.movieDataClient.trendingMovies(),
+      movieList: this.movieDataClient.trendingMovies.value(),
       config: this.trendingMovieListConfig()
     }
   });

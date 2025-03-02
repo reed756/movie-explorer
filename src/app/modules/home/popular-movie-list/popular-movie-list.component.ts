@@ -20,7 +20,7 @@ export class PopularMovieListComponent {
 
   protected popularMovies = computed(() => {
     return {
-      movieList: this.movieDataClient.popularMovies(),
+      movieList: this.movieDataClient.popularMovies.value(),
       config: this.popularMovieListConfig()
     }
   });

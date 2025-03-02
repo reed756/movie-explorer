@@ -1,6 +1,6 @@
 <div class="card-list-container">
   <div class="card-list">
-    @if (data()?.movieList.loading) {
+    @if (data()?.movieList?.loading) {
     <div class="spinner-div">
       <mat-spinner></mat-spinner> Loading...
     </div>
@@ -8,7 +8,7 @@
     <ng-container [ngTemplateOutlet]="listTemplate"
       [ngTemplateOutletContext]="{ $implicit: data().config}"></ng-container>
     <ul>
-      @for (movie of data()?.movieList.data; track $index) {
+      @for (movie of data()?.movieList?.results; track $index) {
       <li>
         <app-movie-card [movie]="movie" [idx]="$index"></app-movie-card>
       </li>

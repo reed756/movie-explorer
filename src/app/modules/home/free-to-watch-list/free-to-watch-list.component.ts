@@ -22,7 +22,7 @@ export class FreeToWatchListComponent {
 
   protected freeToWatch = computed(() => {
     return {
-      movieList: this.movieDataClient.freeToWatch(),
+      movieList: this.movieDataClient.freeToWatch.value(),
       config: this.freeToWatchListConfig()
     }
   });

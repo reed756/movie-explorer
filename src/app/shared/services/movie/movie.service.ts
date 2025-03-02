@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, resource, signal } from '@angular/core';
 import { catchError, filter, map, Observable, shareReplay, startWith, switchMap, throwError } from 'rxjs';
 import { toSignal, toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LoadingState, Movie, MovieResponse } from '../../interfaces/movie';
@@ -15,8 +15,8 @@ export class MovieDataClient {
   private options = {
     headers: {
       accept: 'application/json',
-      Authorization: environment.apiKey
-    }
+      Authorization: environment.apiKey,
+    },
   };
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
@@ -55,57 +55,33 @@ export class MovieDataClient {
     takeUntilDestroyed()
   )
 
-  private trendingMovies$ = toObservable(this.trendingMovieToggle).pipe(
-    filter(Boolean),
-    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}trending/movie/${toggle}`, this.options)),
-    map(data => {
-      const movies = data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-      return ({ data: movies, loading: false });
-    }),
-    shareReplay(1),
-    catchError((err: HttpErrorResponse) => this.handleError(err)),
-    startWith({ loading: true }),
-    takeUntilDestroyed()
-  )
+  public trendingMovies = resource({
+    request: () => ({ toggleValue: this.trendingMovieToggle() }),
+    loader: async ({ request }) => {
+      const response = await fetch(`${this.apiUrl}trending/movie/${request.toggleValue}`, this.options);
+      return response.json();
+    }
+  })
 
-  public popularMovies$ = toObservable(this.popularMovieToggle).pipe(
-    filter(Boolean),
-    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}movie/${toggle}`, this.options)),
-    map((data) => {
-      const movies = data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-      return ({ data: movies, loading: false });
-    }),
-    shareReplay(1),
-    catchError((err: HttpErrorResponse) => this.handleError(err)),
-    startWith({ loading: true }),
-    takeUntilDestroyed()
-  );
+  public popularMovies = resource({
+    request: () => ({ toggleValue: this.popularMovieToggle() }),
+    loader: async ({ request }) => {
+      const response = await fetch(`${this.apiUrl}movie/${request.toggleValue}`, this.options);
+      return response.json();
+    }
+  })
 
-  public freeToWatch$ = toObservable(this.freeToWatchToggle).pipe(
-    filter(Boolean),
-    switchMap(toggle => this.http.get<MovieResponse>(`${this.apiUrl}discover/${toggle}?with_watch_monetization_types=free`, this.options)),
-    map((data) => {
-      const movies = data.results.map((movie: Movie) => ({
-        ...movie
-      }))
-      return ({ data: movies, loading: false });
-    }),
-    shareReplay(1),
-    catchError((err: HttpErrorResponse) => this.handleError(err)),
-    startWith({ loading: true }),
-    takeUntilDestroyed()
-  )
+  public freeToWatch = resource({
+    request: () => ({ toggleValue: this.freeToWatchToggle() }),
+    loader: async ({ request }) => {
+      const response = await fetch(`${this.apiUrl}discover/${request.toggleValue}?with_watch_monetization_types=free`, this.options);
+      return response.json();
+    }
+  })
 
   // Converted Signals
-  trendingMovies = toSignal(this.trendingMovies$, { initialValue: {} as LoadingState<Movie[]> });
-  popularMovies = toSignal(this.popularMovies$, { initialValue: {} as LoadingState<Movie[]> });
   searchResults = toSignal(this.searchResults$, { initialValue: {} as LoadingState<Movie[]> });
   selectedMovie = toSignal(this.movieSelected$, { initialValue: {} as LoadingState<Movie> });
-  freeToWatch = toSignal(this.freeToWatch$, { initialValue: {} as LoadingState<Movie[]> });
 
   // Methods
   public movieSelected(id: number): void {
