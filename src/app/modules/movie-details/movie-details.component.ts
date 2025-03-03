@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input, ResourceRef } from '@angular/core';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { deviceDataClient } from '../../shared/services/device/device.service';
-import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-movie-details',
@@ -23,13 +22,13 @@ export class MovieDetailsComponent {
 
   private movieDataClient = inject(MovieDataClient);
   public deviceDataClient = inject(deviceDataClient);
-  protected selectedMovie = computed<LoadingState<Movie>>(() => this.movieDataClient.selectedMovie());
-  protected votingAverage = computed<number>(() => (this.selectedMovie()?.data?.vote_average ?? 0) * 10);
+  protected selectedMovie = computed<ResourceRef<any>>(() => this.movieDataClient.movieSelected);
+  protected votingAverage = computed<number>(() => (this.selectedMovie()?.value().vote_average ?? 0) * 10);
   protected isMobile = computed(() => this.deviceDataClient.isMobileSignal());
 
   @Input()
   set id(movieId: number) {
-    this.movieDataClient.movieSelected(movieId);
+    this.movieDataClient.selectMovie(movieId);
   }
 
 }

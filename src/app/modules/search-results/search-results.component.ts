@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input, ResourceRef } from '@angular/core';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { deviceDataClient } from '../../shared/services/device/device.service';
-import { LoadingState, Movie } from '../../shared/interfaces/movie';
 
 @Component({
   selector: 'app-search-results',
@@ -19,7 +18,7 @@ export class SearchResultsComponent {
   private movieDataClient = inject(MovieDataClient);
   private deviceDataClient = inject(deviceDataClient);
 
-  protected searchResults = computed<LoadingState<Movie[]>>(() => this.movieDataClient.searchResults());
+  protected searchResults = computed<ResourceRef<any>>(() => this.movieDataClient.searchResults);
   protected isMobile = computed(() => this.deviceDataClient.isMobileSignal);
 
   @Input()

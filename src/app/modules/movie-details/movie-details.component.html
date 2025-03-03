@@ -1,6 +1,6 @@
 <div class="container">
   <section @myInsertRemoveTrigger>
-    @if (selectedMovie().loading) {
+    @if (selectedMovie().isLoading()) {
     <div class="spinner-div">
       <mat-spinner></mat-spinner>
     </div>
@@ -8,31 +8,31 @@
     <div class="movie-div" [class.desktop-padding]="!isMobile()">
       <div [class.movie-grid]="!isMobile()" [class.on-mobile]="isMobile()">
         <div class="movie-img">
-          <img src="https://image.tmdb.org/t/p/original/{{selectedMovie().data?.poster_path}}"
-            [alt]="selectedMovie().data?.title">
+          <img src="https://image.tmdb.org/t/p/original/{{selectedMovie().value()?.poster_path}}"
+            [alt]="selectedMovie().value()?.title">
         </div>
         <div class="movie-content">
           <h1>
-            {{selectedMovie().data?.title}}
+            {{selectedMovie().value()?.title}}
           </h1>
           <h3>
-            {{selectedMovie().data?.release_date | date}} &#8226;
-            @for (genre of selectedMovie().data?.genres; track $index) {
-            @if($index + 1 >= (selectedMovie().data?.genres?.length ?? 0)) {
+            {{selectedMovie().value()?.release_date | date}} &#8226;
+            @for (genre of selectedMovie().value()?.genres; track $index) {
+            @if($index + 1 >= (selectedMovie().value()?.genres?.length ?? 0)) {
             {{genre.name}}
             } @else {
             {{genre.name}},
             }
             }
-            &#8226; {{selectedMovie().data?.runtime}}m
+            &#8226; {{selectedMovie().value()?.runtime}}m
           </h3>
           <h2>
             {{votingAverage() | number : '1.0-0'}}%
           </h2>
-          <em>{{selectedMovie().data?.tagline}}</em>
+          <em>{{selectedMovie().value()?.tagline}}</em>
           <h3>Overview</h3>
           <p>
-            {{selectedMovie().data?.overview}}
+            {{selectedMovie().value()?.overview}}
           </p>
         </div>
       </div>
