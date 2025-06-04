@@ -14,8 +14,8 @@ export class MovieDataClient {
   };
 
   private apiUrl: string = 'https://api.themoviedb.org/3/';
-  searchTerm = signal<string | null | undefined>(undefined);
-  selectedMovieId = signal<number | undefined>(undefined);
+  searchTerm = signal<string | null | undefined>('');
+  selectedMovieId = signal<number | undefined>(0);
   trendingMovieToggle = signal<string | undefined>('day');
   popularMovieToggle = signal<string | undefined>('now_playing');
   freeToWatchToggle = signal<string | undefined>('movie');
