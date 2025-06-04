@@ -21,41 +21,41 @@ export class MovieDataClient {
   freeToWatchToggle = signal<string | undefined>('movie');
 
   public searchResults = resource({
-    request: () => ({ searchTerm: this.searchTerm() }),
-    loader: async ({ request }) => {
-      const response = await fetch(`${this.apiUrl}search/movie?query=${request.searchTerm}`, this.options);
+    params: () => ({ searchTerm: this.searchTerm() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`${this.apiUrl}search/movie?query=${params.searchTerm}`, this.options);
       return response.json();
     }
   })
 
   public movieSelected = resource({
-    request: () => ({ movieId: this.selectedMovieId() }),
-    loader: async ({ request }) => {
-      const response = await fetch(`${this.apiUrl}movie/${request.movieId}`, this.options);
+    params: () => ({ movieId: this.selectedMovieId() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`${this.apiUrl}movie/${params.movieId}`, this.options);
       return response.json();
     }
   })
 
   public trendingMovies = resource({
-    request: () => ({ toggleValue: this.trendingMovieToggle() }),
-    loader: async ({ request }) => {
-      const response = await fetch(`${this.apiUrl}trending/movie/${request.toggleValue}`, this.options);
+    params: () => ({ toggleValue: this.trendingMovieToggle() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`${this.apiUrl}trending/movie/${params.toggleValue}`, this.options);
       return response.json();
     }
   })
 
   public popularMovies = resource({
-    request: () => ({ toggleValue: this.popularMovieToggle() }),
-    loader: async ({ request }) => {
-      const response = await fetch(`${this.apiUrl}movie/${request.toggleValue}`, this.options);
+    params: () => ({ toggleValue: this.popularMovieToggle() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`${this.apiUrl}movie/${params.toggleValue}`, this.options);
       return response.json();
     }
   })
 
   public freeToWatch = resource({
-    request: () => ({ toggleValue: this.freeToWatchToggle() }),
-    loader: async ({ request }) => {
-      const response = await fetch(`${this.apiUrl}discover/${request.toggleValue}?with_watch_monetization_types=free`, this.options);
+    params: () => ({ toggleValue: this.freeToWatchToggle() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`${this.apiUrl}discover/${params.toggleValue}?with_watch_monetization_types=free`, this.options);
       return response.json();
     }
   })
