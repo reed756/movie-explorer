@@ -9,10 +9,17 @@
       [ngTemplateOutletContext]="{ $implicit: data().config}"></ng-container>
     <ul>
       @for (movie of data()?.movieList?.results; track $index) {
-      <li>
+      @if ($index < 3) { <li>
         <app-movie-card [movie]="movie" [idx]="$index"></app-movie-card>
-      </li>
-      }
+        </li>
+        } @else {
+        @defer {
+        <li>
+          <app-movie-card [movie]="movie" [idx]="$index"></app-movie-card>
+        </li>
+        }
+        }
+        }
     </ul>
     }
   </div>

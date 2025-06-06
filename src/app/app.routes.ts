@@ -8,6 +8,11 @@ export const routes: Routes = [
       import('./modules/home/home.component').then(it => it.HomeComponent)
   },
   {
+    path: 'auth',
+    loadComponent: () =>
+      import('./modules/auth/auth.component').then(it => it.AuthComponent)
+  },
+  {
     path: 'movie-details/:id',
     loadComponent: () =>
       import('./modules/movie-details/movie-details.component').then(it => it.MovieDetailsComponent)
