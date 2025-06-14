@@ -8,12 +8,14 @@
 
 # Node
 /node_modules
+*/node_modules
 /server/node_modules
 npm-debug.log
 yarn-error.log
 environment.ts
 /server/.env
 /.env
+*/.env
 
 # IDEs and editors
 .idea/
