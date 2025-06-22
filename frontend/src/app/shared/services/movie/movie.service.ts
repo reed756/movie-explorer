@@ -55,7 +55,7 @@ export class MovieDataClient {
   public freeToWatch = resource({
     params: () => ({ toggleValue: this.freeToWatchToggle() }),
     loader: async ({ params }) => {
-      const response = await fetch(`${this.apiUrl}discover/${params.toggleValue}?with_watch_monetization_types=free`, this.options);
+      const response = await fetch(`http://localhost:3000/api/free/${params.toggleValue}`, this.options);
       return response.json();
     }
   })

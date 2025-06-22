@@ -29,8 +29,7 @@ app.get("/api/free/:toggleValue", (req, res) => {
   return fetch(url, options)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json.results);
-      res.status(200).send(json.results);
+      res.status(200).send(json);
     })
     .catch((err) => console.error(err));
 });

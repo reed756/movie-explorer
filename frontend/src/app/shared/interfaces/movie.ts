@@ -18,11 +18,13 @@ export interface Movie {
   genres: { id: number, name: string }[];
   media_type: string;
   original_language: string;
-  original_title: string;
+  original_title?: string;
+  original_name?: string;
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: string;
+  release_date?: string;
+  first_air_date?: string;
   title: string;
   video: boolean;
   vote_average: number;
