@@ -39,7 +39,7 @@ export class MovieDataClient {
   public trendingMovies = resource({
     params: () => ({ toggleValue: this.trendingMovieToggle() }),
     loader: async ({ params }) => {
-      const response = await fetch(`${this.apiUrl}trending/movie/${params.toggleValue}`, this.options);
+      const response = await fetch(`http://localhost:3000/api/trending/${params.toggleValue}`, this.options);
       return response.json();
     }
   })
@@ -47,7 +47,7 @@ export class MovieDataClient {
   public popularMovies = resource({
     params: () => ({ toggleValue: this.popularMovieToggle() }),
     loader: async ({ params }) => {
-      const response = await fetch(`${this.apiUrl}movie/${params.toggleValue}`, this.options);
+      const response = await fetch(`http://localhost:3000/api/popular/${params.toggleValue}`, this.options);
       return response.json();
     }
   })
