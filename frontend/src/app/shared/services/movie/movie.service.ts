@@ -23,7 +23,7 @@ export class MovieDataClient {
   public searchResults = resource({
     params: () => ({ searchTerm: this.searchTerm() }),
     loader: async ({ params }) => {
-      const response = await fetch(`${this.apiUrl}search/movie?query=${params.searchTerm}`, this.options);
+      const response = await fetch(`http://localhost:3000/api/search/${params.searchTerm}`, this.options);
       return response.json();
     }
   })
@@ -31,7 +31,7 @@ export class MovieDataClient {
   public movieSelected = resource({
     params: () => ({ movieId: this.selectedMovieId() }),
     loader: async ({ params }) => {
-      const response = await fetch(`${this.apiUrl}movie/${params.movieId}`, this.options);
+      const response = await fetch(`http://localhost:3000/api/movie/${params.movieId}`, this.options);
       return response.json();
     }
   })

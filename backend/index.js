@@ -72,4 +72,46 @@ app.get("/api/trending/:toggleValue", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+app.get("/api/movie/:id", (req, res) => {
+  const id = req.params.id;
+  if (!id) {
+    return res.status(400).json({ error: "Invalid movie ID." });
+  }
+  const url = `https://api.themoviedb.org/3/movie/${id}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: process.env.API_KEY,
+    },
+  };
+  return fetch(url, options)
+    .then((res) => res.json())
+    .then((json) => {
+      res.status(200).send(json);
+    })
+    .catch((err) => console.error(err));
+});
+
+app.get("/api/search/:query", (req, res) => {
+  const query = req.params.query;
+  if (!query) {
+    return res.status(400).json({ error: "Invalid search query." });
+  }
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: process.env.API_KEY,
+    },
+  };
+  return fetch(url, options)
+    .then((res) => res.json())
+    .then((json) => {
+      res.status(200).send(json);
+    })
+    .catch((err) => console.error(err));
+});
+
 app.listen(3000, () => console.log("Backend running on http://localhost:3000"));
