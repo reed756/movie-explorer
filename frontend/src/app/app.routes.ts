@@ -25,6 +25,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./modules/movie-details/movie-details.component').then(it => it.MovieDetailsComponent)
+      import('./modules/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)
   },  // Wildcard route for a 404 page
 ];

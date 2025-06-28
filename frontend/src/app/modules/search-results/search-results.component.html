@@ -1,6 +1,6 @@
 <div class="container">
   <div class="search-results-div">
-    @if (!searchResults().isLoading() && searchResults().value()) {
+    @if (!searchResults().isLoading() && searchResults().value().results.length > 0) {
     <ul class="search-results-list" [class.on-mobile]="isMobile()">
       @for (movie of searchResults().value().results; track $index) {
       <li class="search-results-list-item">
@@ -31,7 +31,7 @@
       </li>
       }
     </ul>
-    } @else if (!searchResults().isLoading() && !searchResults().value()) {
+    } @else if (!searchResults().isLoading() && searchResults().value().results.length === 0) {
     <p>There are no movies that matched your query.</p>
     } @else if (searchResults().isLoading()) {
     <mat-spinner></mat-spinner>
