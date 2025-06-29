@@ -1,7 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
+*/dist
 /dist
+/frontend/dist
 /tmp
 /out-tsc
 /bazel-out
@@ -33,8 +35,10 @@ environment.ts
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+/frontend/.vscode
 
 # Miscellaneous
+/frontend/.angular/cache
 /.angular/cache
 .sass-cache/
 /connect.lock
