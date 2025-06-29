@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "concurrently \"npm:frontend\" \"npm:backend\"",
     "frontend": "npm run start --workspace=frontend",
-    "backend": "npm run start --workspace=backend"
+    "backend": "npm run start --workspace=backend",
+    "build": "npm run build --workspace=frontend"
   }
 }
