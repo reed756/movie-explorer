@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 require("dotenv").config();
@@ -114,4 +115,4 @@ app.get("/api/search/:query", (req, res) => {
     .catch((err) => console.error(err));
 });
 
-app.listen(3000, () => console.log("Backend running on http://localhost:3000"));
+app.listen(port, () => console.log(`Backend running on http://localhost:${port}`));
