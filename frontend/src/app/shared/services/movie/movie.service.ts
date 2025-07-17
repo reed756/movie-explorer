@@ -1,4 +1,5 @@
-import { Injectable, resource, signal } from '@angular/core';
+import { Injectable, isDevMode, resource, signal } from '@angular/core';
+import environment from '../../../../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,11 @@ export class MovieDataClient {
   private options = {
     headers: {
       accept: 'application/json',
+      authorization: isDevMode() ? '' : environment.PROD_API_KEY,
     },
   };
 
-  private apiUrl: string = 'http://localhost:3000/api';
+  private apiUrl: string | undefined = isDevMode() ? environment.DEV_URL : environment.PROD_URL;
   searchTerm = signal<string | null | undefined>('');
   selectedMovieId = signal<number | undefined>(0);
   trendingMovieToggle = signal<string | undefined>('day');

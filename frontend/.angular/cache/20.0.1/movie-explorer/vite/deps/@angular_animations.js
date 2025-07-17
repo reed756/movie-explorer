@@ -18,7 +18,7 @@ import {
   useAnimation,
   ɵPRE_STYLE
 } from "./chunk-5UIZPFSD.js";
-import "./chunk-AD5GF3N2.js";
+import "./chunk-W26MBHDK.js";
 import "./chunk-4XXGXEHL.js";
 import {
   ANIMATION_MODULE_TYPE,
@@ -32,7 +32,8 @@ import {
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-VHE5YVD6.js";
+} from "./chunk-A5M2WDY4.js";
+import "./chunk-H2SRQSE4.js";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationBuilder = class _AnimationBuilder {
