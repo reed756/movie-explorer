@@ -1,8 +1,30 @@
 const express = require("express");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors());
+const allowedOrigins = ["https://movie-explorer-angular.netlify.app/", "http://localhost:4200"];
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message: "Too many requests from this IP, please try again later.",
+});
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+app.use(apiLimiter); // apply rate limiting middleware
 app.use(express.json());
 require("dotenv").config();
 
@@ -21,6 +43,7 @@ app.get("/api/free/:toggleValue", (req, res) => {
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+      "Access-Control-Allow-Origin": allowedOrigins,
     },
   };
   return fetch(url, options)
@@ -42,6 +65,7 @@ app.get("/api/popular/:toggleValue", (req, res) => {
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+      "Access-Control-Allow-Origin": allowedOrigins,
     },
   };
   return fetch(url, options)
@@ -63,6 +87,7 @@ app.get("/api/trending/:toggleValue", (req, res) => {
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+      "Access-Control-Allow-Origin": allowedOrigins,
     },
   };
   return fetch(url, options)
@@ -84,6 +109,7 @@ app.get("/api/movie/:id", (req, res) => {
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+      "Access-Control-Allow-Origin": allowedOrigins,
     },
   };
   return fetch(url, options)
@@ -105,6 +131,7 @@ app.get("/api/search/:query", (req, res) => {
     headers: {
       accept: "application/json",
       Authorization: process.env.API_KEY,
+      "Access-Control-Allow-Origin": allowedOrigins,
     },
   };
   return fetch(url, options)

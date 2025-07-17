@@ -1,19 +1,17 @@
 import {
   isPlatformBrowser
-} from "./chunk-W26MBHDK.js";
+} from "./chunk-T5HZPBSR.js";
 import "./chunk-4XXGXEHL.js";
 import {
   Inject,
   Injectable,
   PLATFORM_ID,
+  __spreadProps,
+  __spreadValues,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-A5M2WDY4.js";
-import {
-  __spreadProps,
-  __spreadValues
-} from "./chunk-H2SRQSE4.js";
+} from "./chunk-43AZEKQT.js";
 
 // node_modules/ngx-device-detector/fesm2022/ngx-device-detector.mjs
 var GENERAL = {
