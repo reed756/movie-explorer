@@ -23,6 +23,9 @@ export class MovieDataClient {
   public searchResults = resource({
     params: () => ({ searchTerm: this.searchTerm() }),
     loader: async ({ params }) => {
+      if (!params.searchTerm) {
+        return [];
+      }
       const response = await fetch(`${this.apiUrl}/search/${params.searchTerm}`, this.options);
       return response.json();
     }
