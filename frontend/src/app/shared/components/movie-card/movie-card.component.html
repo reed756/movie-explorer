@@ -1,9 +1,9 @@
 <mat-card @myInsertRemoveTrigger>
   <mat-card-header>
     <div mat-card-avatar class="rating-avatar">
-      <h3>
+      <p>
         {{averageVote()}}
-      </h3>
+      </p>
     </div>
     <mat-card-title>{{movie()?.original_title ? movie()?.original_title : movie()?.original_name}}</mat-card-title>
     <mat-card-subtitle>{{(movie()?.release_date ? movie()?.release_date : movie()?.first_air_date) | date}}

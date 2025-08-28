@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +13,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent, BrowserAnimationsModule],
-      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting()]
+      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()]
     })
       .compileComponents();
 

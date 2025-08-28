@@ -4,6 +4,7 @@ import { FreeToWatchListComponent } from './free-to-watch-list.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MovieDataClient } from '../../../shared/services/movie/movie.service';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('FreeToWatchListComponent', () => {
   let component: FreeToWatchListComponent;
@@ -12,7 +13,7 @@ describe('FreeToWatchListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FreeToWatchListComponent],
-      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting()]
+      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()]
     })
       .compileComponents();
 

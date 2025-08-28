@@ -4,10 +4,11 @@ import { MovieDetailsComponent } from './movie-details.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MovieDataClient } from '../../shared/services/movie/movie.service';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('MovieDetailsComponent', () => {
   it('should create the component', () => {
-    TestBed.configureTestingModule({ imports: [MovieDetailsComponent], providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting()] });
+    TestBed.configureTestingModule({ imports: [MovieDetailsComponent], providers: [provideZonelessChangeDetection(), MovieDataClient, provideHttpClient(), provideHttpClientTesting()] });
     const fixture = TestBed.createComponent(MovieDetailsComponent);
     const component = fixture.componentInstance;
     expect(component).toBeDefined();

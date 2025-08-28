@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { MovieDataClient } from './movie.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('movieDataClient', () => {
   let service: MovieDataClient;
@@ -12,6 +13,7 @@ describe('movieDataClient', () => {
         MovieDataClient,
         provideHttpClient(),
         provideHttpClientTesting(),
+        provideZonelessChangeDetection()
       ]
     });
     service = TestBed.inject(MovieDataClient);

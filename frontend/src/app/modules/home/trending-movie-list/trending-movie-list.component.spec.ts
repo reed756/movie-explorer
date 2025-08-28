@@ -4,6 +4,7 @@ import { TrendingMovieListComponent } from './trending-movie-list.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MovieDataClient } from '../../../shared/services/movie/movie.service';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TrendingMovieListComponent', () => {
   let component: TrendingMovieListComponent;
@@ -12,7 +13,7 @@ describe('TrendingMovieListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TrendingMovieListComponent],
-      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting()]
+      providers: [MovieDataClient, provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()]
     })
       .compileComponents();
 
